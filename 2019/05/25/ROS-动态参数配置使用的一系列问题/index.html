@@ -266,7 +266,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.9k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -395,8 +395,9 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="ROS-动态参数配置Dynamic-Reconfigure-使用的一系列问题"><a href="#ROS-动态参数配置Dynamic-Reconfigure-使用的一系列问题" class="headerlink" title="ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题"></a>ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题</h1><p>动态参数配置在机器人中使用还是挺频繁的，避免了ros中参数服务器的来回更改并且需要不断监听的缺陷，<br>动态参数配置就是ROS中的一个Service，需要改变参数的节点就充当一个服务器Server，调用改变参数的<br>rqt_reconfigure就相当于是客户端Client，这样配置参数相当方便。但是我在使用的过程中实在是遇到了</p>
-<h2 id="相当多的问题，果真还是我太菜了。下面详细说一下我遇到的一些问题。"><a href="#相当多的问题，果真还是我太菜了。下面详细说一下我遇到的一些问题。" class="headerlink" title="相当多的问题，果真还是我太菜了。下面详细说一下我遇到的一些问题。"></a>相当多的问题，果真还是我太菜了。下面详细说一下我遇到的一些问题。</h2><h2 id="动态参数的基本使用"><a href="#动态参数的基本使用" class="headerlink" title="动态参数的基本使用"></a>动态参数的基本使用</h2><h3 id="在package-xml中配置依赖"><a href="#在package-xml中配置依赖" class="headerlink" title="在package.xml中配置依赖"></a>在package.xml中配置依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;build_depend&gt;dynamic_reconfigure&lt;/build_depend&gt;</span><br><span class="line">&lt;build_depend&gt;dynamic_reconfigure&lt;/build_depend&gt;</span><br><span class="line">&lt;exec_depend&gt;dynamic_reconfigure&lt;/exec_depend&gt;</span><br></pre></td></tr></table></figure>
+        <h1 id="ROS-动态参数配置Dynamic-Reconfigure-使用的一系列问题"><a href="#ROS-动态参数配置Dynamic-Reconfigure-使用的一系列问题" class="headerlink" title="ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题"></a>ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题</h1><p>动态参数配置在机器人中使用还是挺频繁的，避免了ros中参数服务器的来回更改并且需要不断监听的缺陷，<br>动态参数配置就是ROS中的一个Service，需要改变参数的节点就充当一个服务器Server，调用改变参数的<br>rqt_reconfigure就相当于是客户端Client，这样配置参数相当方便。但是我在使用的过程中实在是遇到了<br>相当多的问题，果真还是我太菜了。下面详细说一下我遇到的一些问题。</p>
+<hr>
+<h2 id="动态参数的基本使用"><a href="#动态参数的基本使用" class="headerlink" title="动态参数的基本使用"></a>动态参数的基本使用</h2><h3 id="在package-xml中配置依赖"><a href="#在package-xml中配置依赖" class="headerlink" title="在package.xml中配置依赖"></a>在package.xml中配置依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;build_depend&gt;dynamic_reconfigure&lt;/build_depend&gt;</span><br><span class="line">&lt;build_depend&gt;dynamic_reconfigure&lt;/build_depend&gt;</span><br><span class="line">&lt;exec_depend&gt;dynamic_reconfigure&lt;/exec_depend&gt;</span><br></pre></td></tr></table></figure>
 <p>###创建一个配置文件<br>这个配置文件里主要就是确定需要动态改变的参数还有改变的方式以及默认参数、参数范围等。在package内建立一个文件夹cfg。<br><code>$mkdir cfg</code><br><code>$torch (filename).cfg</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">PACKAGE = &quot;ros_cutball&quot;</span><br><span class="line"></span><br><span class="line">from dynamic_reconfigure.parameter_generator_catkin import *</span><br><span class="line"></span><br><span class="line">gen = ParameterGenerator()</span><br><span class="line"></span><br><span class="line">gen.add(&quot;H1&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 180)</span><br><span class="line">gen.add(&quot;S1&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line">gen.add(&quot;V1&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line">gen.add(&quot;H2&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 180)</span><br><span class="line">gen.add(&quot;S2&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line">gen.add(&quot;V2&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exit(gen.generate(PACKAGE, &quot;ros_cutball&quot;, &quot;hsv_&quot;))</span><br></pre></td></tr></table></figure></p>
 <p>我使用这个的原因是图像调整hsv的阈值用于颜色检测。我这里改成”hsv_”,最后就是 #include &lt;ros_cutball/hsv_Config.h&gt;<br>最后最好自己写个launch文件，把自己的参数yaml文件加入进去，方便调参。<br>这里一定要记得<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x (your_package)/cfg/(filename).cfg</span><br></pre></td></tr></table></figure></p>
 <p>将cfg文件设置可执行权限。</p>
@@ -412,9 +413,19 @@ height:50vh;
 <hr>
 <h2 id="继续探索"><a href="#继续探索" class="headerlink" title="继续探索"></a>继续探索</h2><p>主要是cfg中设置了默认值的原因。由于我的图像部分代码是在无人机起飞前就要调整好图像的颜色阈值的，这样飞机上的机载RGB相机可以通过颜色识别来进行之后的一系列操作。但是由于设置了默认值的原因，通过我自己编写的launch文件每次启动节点颜色的阈值都是默认值，如果要修改默认值，必须重新编译整个package，这样反而大大降低效率，也不符合我使用ROS的初衷。所以进行了更多的探索。</p>
 <h3 id="想法一"><a href="#想法一" class="headerlink" title="想法一"></a>想法一</h3><p>通过在launch文件中更改参数服务器中的参数数值，以为会使默认值抵消。<br>前面说过，动态参数配置实际上是一个服务，我仅仅改变参数服务器的上的参数的之没有调用服务器的回调函数，然而我的使程序内阈值变化的代码是放在回调函数中的，所以，无论是手动改变参数还是launch文件启动时改变都无济于事，虽然参数服务器上的值变化了，但是程序内部的阈值没有。</p>
-<h3 id="想法二"><a href="#想法二" class="headerlink" title="想法二"></a>想法二</h3><p>然后去维基百科上查找文档，发现有通过命令行手动调用dynamic_reconfigure的方法修改参数并且调用回调函数，经过我的测试确实可以，于是将这个rosrun的调用写在了launch文件中，但是启动launch后还是无效。原因可能是launch文件内节点的启动顺序不一致造成的，可能我的节点在我配置参数后才启动，那么程序内的server启动后还是会使用默认值。</p>
-<h3 id="想法三"><a href="#想法三" class="headerlink" title="想法三"></a>想法三</h3><p>继续查文档，看FAQ，里面提问我的需求的人很少，但是发现了有在C++程序内手动调用Client.Call的方法。如果在Server启动后就Call一下不久解决了吗，将前一次调好的阈值参数保存在一个文件中，然后在程序内加载就行了。我觉得这个方法应该可行，明天尝试。</p>
-<h3 id="想法四"><a href="#想法四" class="headerlink" title="想法四"></a>想法四</h3><p>将近看了四个小时，最后发现开发人员的一条回答。说dynamic_reconfigure在关闭后是将最后的参数保存下来的。<br>==前提是没有关闭roscore==,我觉得这个简直是一句话解决我所有问题。<br>明天继续。</p>
+<h3 id="想法二"><a href="#想法二" class="headerlink" title="想法二"></a>想法二</h3><p>然后去维基百科上查找文档，发现有通过命令行手动调用dynamic_reconfigure的方法修改参数并且调用回调函数，经过我的测试确实可以，于是将这个rosrun的调用写在了launch文件中，但是启动launch后还是无效。原因可能是launch文件内节点的启动顺序不一致造成的，可能我的节点在我配置参数后才启动，那么程序内的server启动后还是会使用默认值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun dynamic_reconfigure dynparam set /node parameter_name value</span><br></pre></td></tr></table></figure></p>
+<p>这个命令手动调用动态参数的回调函数。<br>多个参数可以这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun dynamic_reconfigure dynparam set wge100_camera &quot;&#123;&apos;camera_url&apos;:&apos;foo&apos;, &apos;brightness&apos;:58&#125;&quot;</span><br></pre></td></tr></table></figure></p>
+<p>后面是个yaml的字典。</p>
+<h3 id="想法三"><a href="#想法三" class="headerlink" title="想法三"></a>想法三</h3><p>继续查文档，看FAQ，里面提问我的需求的人很少，但是发现了有在C++程序内手动调用Client.Call的方法。如果在Server启动后就Call一下不久解决了吗，将前一次调好的阈值参数保存在一个文件中，然后在程序内加载就行了。我觉得这个方法应该可行，目前来不及测试，附上链接，待需要时查看。</p>
+<ul>
+<li><a href="https://answers.ros.org/question/12276/is-there-a-c-api-for-a-dynamic-reconfigure-client/" target="_blank" rel="noopener">https://answers.ros.org/question/12276/is-there-a-c-api-for-a-dynamic-reconfigure-client/</a></li>
+<li><a href="https://answers.ros.org/question/57498/notify-changes-to-dynamic_reconfigure/" target="_blank" rel="noopener">https://answers.ros.org/question/57498/notify-changes-to-dynamic_reconfigure/</a></li>
+</ul>
+<h3 id="想法四（采用）"><a href="#想法四（采用）" class="headerlink" title="想法四（采用）"></a>想法四（采用）</h3><p>将近看了四个小时，最后发现开发人员的一条回答。说dynamic_reconfigure在关闭后是将最后的参数保存下来的。<br><u><em>前提是没有关闭roscore</em></u>, 我觉得这个简直是一句话解决我所有问题。<br>经过测试，首先启动roscore，然后启动动态参数配置节点的launch文件，更改参数后，然后关闭launch文件，再次启动launch文件，发现的确参数保持上次关闭时候的参数。<a href="https://answers.ros.org/question/12830/dynamic-reconfigure-default-values-not-working/" target="_blank" rel="noopener">不懈查找的结果</a></p>
+<ul>
+<li>通过查阅FAQ与github的issue，他们在2013年的时候就添加了这个机制：动态参数服务建立时就会获取参数服务器上的需要动态更改的参数的信息，如果存在，则使用参数服务器上的值，否则使用默认的值。</li>
+</ul>
+<p>这样，在每次进行项目时，先启动roscore后启动节点的调试模式修改参数，不能关闭roscore，然后重启节点进行生产模式后，执行业务。</p>
 
     </article>
     <!-- license  -->
@@ -531,15 +542,15 @@ height:50vh;
     </div>
     
     <!-- powered by Hexo  -->
-    <div class="copyright">
+    <!-- <div class="copyright">
         <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
-    </div>
+    </div> -->
     <!-- 不蒜子  -->
     
     <div class="busuanzi-container">
     
      
-    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    <span id="busuanzi_container_site_pv">访问量: <span id="busuanzi_value_site_pv"></span> :)</span>
     
     </div>
     
@@ -562,7 +573,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ROS-动态参数配置Dynamic-Reconfigure-使用的一系列问题"><span class="toc-number">1.</span> <span class="toc-text">ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#相当多的问题，果真还是我太菜了。下面详细说一下我遇到的一些问题。"><span class="toc-number">1.1.</span> <span class="toc-text">相当多的问题，果真还是我太菜了。下面详细说一下我遇到的一些问题。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态参数的基本使用"><span class="toc-number">1.2.</span> <span class="toc-text">动态参数的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在package-xml中配置依赖"><span class="toc-number">1.2.1.</span> <span class="toc-text">在package.xml中配置依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更改CmakeList-txt"><span class="toc-number">1.2.2.</span> <span class="toc-text">更改CmakeList.txt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpp文件的编写"><span class="toc-number">1.2.3.</span> <span class="toc-text">cpp文件的编写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继续探索"><span class="toc-number">1.3.</span> <span class="toc-text">继续探索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#想法一"><span class="toc-number">1.3.1.</span> <span class="toc-text">想法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想法二"><span class="toc-number">1.3.2.</span> <span class="toc-text">想法二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想法三"><span class="toc-number">1.3.3.</span> <span class="toc-text">想法三</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想法四"><span class="toc-number">1.3.4.</span> <span class="toc-text">想法四</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ROS-动态参数配置Dynamic-Reconfigure-使用的一系列问题"><span class="toc-number">1.</span> <span class="toc-text">ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态参数的基本使用"><span class="toc-number">1.1.</span> <span class="toc-text">动态参数的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在package-xml中配置依赖"><span class="toc-number">1.1.1.</span> <span class="toc-text">在package.xml中配置依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更改CmakeList-txt"><span class="toc-number">1.1.2.</span> <span class="toc-text">更改CmakeList.txt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpp文件的编写"><span class="toc-number">1.1.3.</span> <span class="toc-text">cpp文件的编写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继续探索"><span class="toc-number">1.2.</span> <span class="toc-text">继续探索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#想法一"><span class="toc-number">1.2.1.</span> <span class="toc-text">想法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想法二"><span class="toc-number">1.2.2.</span> <span class="toc-text">想法二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想法三"><span class="toc-number">1.2.3.</span> <span class="toc-text">想法三</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想法四（采用）"><span class="toc-number">1.2.4.</span> <span class="toc-text">想法四（采用）</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -606,12 +617,12 @@ top:50vh;
     
     
     
-    <div class="archive-year"> 2019 </div>
+    <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/22</span><a class="archive-post-title" href="/2019/05/22/hello-world/">Hello World</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/25/ROS-动态参数配置使用的一系列问题/">ROS-动态参数配置使用的一系列问题</a>
         </li>
     
     
@@ -620,12 +631,12 @@ top:50vh;
     
         </ul>
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 2019 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/25/ROS-动态参数配置使用的一系列问题/">ROS-动态参数配置使用的一系列问题</a>
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href="/2019/05/22/hello-world/">Hello World</a>
         </li>
     
     </ul></div>
