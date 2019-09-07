@@ -402,48 +402,48 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <p>Faster-RCNN 的网络框架如下：</p>
-<p><img src="Faster-RCNN-理解笔记/rcnn_layout.jpg" alt="frame"></p>
+<p><img src="/images/Faster-RCNN-理解笔记/rcnn_layout.jpg" alt="img"></p>
 <h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><p>1.首先输入图片经过一个神经网络生成层次比较深的feature map，这个网络目前来说比较流行的就是resnet101，然后在这个feature map 上进行两个分支，其中一个输入到RPN网络。</p>
 <p>2.进行region的一个proposal，类似于rcnn中使用selective search进行的区域提取，在feature map上提取出来region后，需要对每个region对应的anchor进行一个二分类，判断其是前景（存在物体）还是后景（不存在）。在这里还要对bounding box第一次做一个回归，使anchor对ground truth有一定的逼近。</p>
 <p>3.之后是另一条路，输入的是feature map和RPN网络给出的region，首先进行ROI pooling层，使这一层网络输出的向量维度统一。</p>
 <p>4.最终对每个region进行一个分类，判断物体的类别，使用全连接，再输入到softmax中进行预测。使用L1 Loss再次进行一次bounding box的回归，输出类别和框选。</p>
 <h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p>摘自 <a href="https://www.cnblogs.com/wangyong/p/8513563.html" target="_blank" rel="noopener">https://www.cnblogs.com/wangyong/p/8513563.html</a></p>
-<p><img src="Faster-RCNN-理解笔记/network.png" alt="network"></p>
+<p><img src="/images/Faster-RCNN-理解笔记/network.png" alt="img"></p>
 <h4 id="1-Conv-layers"><a href="#1-Conv-layers" class="headerlink" title="1.Conv layers"></a>1.Conv layers</h4><p>Faster RCNN首先是支持输入任意大小的图片的，比如上图中输入的P<em>Q，进入网络之前对图片进行了规整化尺度的设定，如可设定图像短边不超过600，图像长边不超过1000，我们可以假定M</em>N=1000*600（如果图片少于该尺寸，可以边缘补0，即图像会有黑色边缘）</p>
 <p>①   13个conv层：kernel_size=3,pad=1,stride=1;</p>
-<p>卷积公式：<img src="Faster-RCNN-理解笔记/F1.png" alt="img"></p>
+<p>卷积公式：<img src="/images/Faster-RCNN-理解笔记/F1.png" alt="img"></p>
 <p>所以，conv层不会改变图片大小（即：输入的图片大小=输出的图片大小）</p>
 <p>②   13个relu层：激活函数，不改变图片大小</p>
 <p>③   4个pooling层：kernel_size=2,stride=2;pooling层会让输出图片是输入图片的1/2</p>
 <p>经过Conv layers，图片大小变成(M/16)<em>(N/16)，即：60</em>40(1000/16≈60,600/16≈40)；则，Feature Map就是60<em>40</em>512-d(注：VGG16是512-d,ZF是256-d)，表示特征图的大小为60*40，数量为512</p>
 <h4 id="2-RPN-Region-Proposal-Networks"><a href="#2-RPN-Region-Proposal-Networks" class="headerlink" title="2.RPN(Region Proposal Networks)"></a>2.RPN(Region Proposal Networks)</h4><p>Feature Map进入RPN后，先经过一次3<em>3的卷积，同样，特征图大小依然是60</em>40,数量512，这样做的目的应该是进一步集中特征信息，接着看到两个全卷积,即kernel_size=1*1,p=0,stride=1;</p>
-<p><img src="Faster-RCNN-理解笔记/rpn1.png" alt="rpn"></p>
+<p><img src="/images/Faster-RCNN-理解笔记/rpn1.png" alt="rpn"></p>
 <p>如上图中标识：</p>
 <p>①   rpn_cls：60<em>40</em>512-d ⊕  1<em>1</em>512<em>18 ==&gt; 60</em>40<em>9</em>2 </p>
 <p>  逐像素对其9个Anchor box进行二分类</p>
 <p>②   rpn_bbox：60<em>40</em>512-d ⊕  1<em>1</em>512<em>36==&gt;60</em>40<em>9</em>4</p>
 <p>  逐像素得到其9个Anchor box四个坐标信息（其实是偏移量，后面介绍）</p>
 <p>  如下图所示：</p>
-<p><img src="Faster-RCNN-理解笔记/rpn.png" alt="rpn"></p>
-<h6 id="Anchor生成"><a href="#Anchor生成" class="headerlink" title="Anchor生成"></a>Anchor生成</h6><p>前面提到经过Conv layers后，图片大小变成了原来的1/16，令feat_stride=16，在生成Anchors时，我们先定义一个base_anchor，大小为16<em>16的box(因为特征图(60</em>40)上的一个点，可以对应到原图（1000<em>600）上一个16</em>16大小的区域)，源码中转化为[0,0,15,15]的数组，参数ratios=[0.5, 1, 2]scales=[8, 16, 32]</p>
+<p><img src="/images/Faster-RCNN-理解笔记/rpn.png" alt="rpn"></p>
+<h5 id="Anchor生成"><a href="#Anchor生成" class="headerlink" title="Anchor生成"></a>Anchor生成</h5><p>前面提到经过Conv layers后，图片大小变成了原来的1/16，令feat_stride=16，在生成Anchors时，我们先定义一个base_anchor，大小为16<em>16的box(因为特征图(60</em>40)上的一个点，可以对应到原图（1000<em>600）上一个16</em>16大小的区域)，源码中转化为[0,0,15,15]的数组，参数ratios=[0.5, 1, 2]scales=[8, 16, 32]</p>
 <p>先看[0,0,15,15],面积保持不变，长、宽比分别为[0.5, 1, 2]是产生的Anchors box</p>
-<p><img src="Faster-RCNN-理解笔记/anchor1.png" alt="anchor"></p>
+<p><img src="/images/Faster-RCNN-理解笔记/anchor1.png" alt="anchor"></p>
 <p>如果经过scales变化，即长、宽分别均为 (16<em>8=128)、(16</em>16=256)、(16*32=512)，对应anchor box如图</p>
-<p><img src="Faster-RCNN-理解笔记/anchor2.png" alt="anchor"></p>
+<p><img src="/images/Faster-RCNN-理解笔记/anchor2.png" alt="anchor"></p>
 <p>综合以上两种变换，最后生成9个Anchor box</p>
-<p><img src="Faster-RCNN-理解笔记/anchor3.jpg" alt="anchor"></p>
+<p><img src="/images/Faster-RCNN-理解笔记/anchor3.jpg" alt="anchor"></p>
 <p>所以，最终base_anchor=[0,0,15,15]生成的9个Anchor box坐标如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1 [[ -84.  -40.   99.   55.]  </span><br><span class="line">2 [-176.  -88.  191.  103.]  </span><br><span class="line">3 [-360. -184.  375.  199.]  </span><br><span class="line">4 [ -56.  -56.   71.   71.]  </span><br><span class="line">5 [-120. -120.  135.  135.]  </span><br><span class="line">6 [-248. -248.  263.  263.]  </span><br><span class="line">7 [ -36.  -80.   51.   95.]  </span><br><span class="line">8 [ -80. -168.   95.  183.]  </span><br><span class="line">9 [-168. -344.  183.  359.]]</span><br></pre></td></tr></table></figure>
 <p>特征图大小为60<em>40，所以会一共生成60</em>40*9=21600个Anchor box</p>
 <p>源码中，通过width:(0~60)<em>16,height(0~40)</em>16建立shift偏移量数组，再和base_ancho基准坐标数组累加，得到特征图上所有像素对应的Anchors的坐标值，是一个[216000,4]的数组</p>
-<h6 id="Bounding-Box-regression"><a href="#Bounding-Box-regression" class="headerlink" title="Bounding Box regression"></a>Bounding Box regression</h6><p><img src="Faster-RCNN-理解笔记/Bbox.png" alt="FC"></p>
+<h5 id="Bounding-Box-regression"><a href="#Bounding-Box-regression" class="headerlink" title="Bounding Box regression"></a>Bounding Box regression</h5><p><img src="/images/Faster-RCNN-理解笔记/Bbox.png" alt="FC"></p>
 <p>这个对于CVPR2019的一篇MOT是个基础，需要再次深入理解一下。</p>
 <p>例如绿色的框是ground truth，而红色是我们的一个region，它们都代表了框内的物体是个飞机，但是我们现在的红色的框明显不是很精确，于是我们需要用一个小网络，使红色的框尽可能的接近绿色的GT，这就是BBox回归的思想。我的理解就是，随便在图片上选取一个有物体的框，让网络自己去适应最好的结果，也就是我给你的虽然不是很好，但是要让你自己去把好的给我找到，让网络自己学习一个好的效果，感觉十分的需要训练集的强大。</p>
 <p>那么经过何种变换才能从图 2 中的窗口 P 变为窗口G^G^呢？ 比较简单的思路就是: 平移+尺度放缩</p>
 <p>先做平移(Δx,Δy)(Δx,Δy)， Δx=Pwdx(P),Δy=Phdy(P)Δx=Pwdx(P),Δy=Phdy(P) 这是R-CNN论文的：<br>G^x=Pwdx(P)+Px,(1)<br>G^x=Pwdx(P)+Px,(1)<br>G^y=Phdy(P)+Py,(2)<br>G^y=Phdy(P)+Py,(2)<br>然后再做尺度缩放(Sw,Sh)(Sw,Sh), Sw=exp(dw(P)),Sh=exp(dh(P))Sw=exp(dw(P)),Sh=exp(dh(P)), 对应论文中：<br>G^w=Pwexp(dw(P)),(3)<br>G^w=Pwexp(dw(P)),(3)<br>G^h=Phexp(dh(P)),(4)<br>G^h=Phexp(dh(P)),(4)<br>观察(1)-(4)我们发现， 边框回归学习就是dx(P),dy(P),dw(P),dh(P)dx(P),dy(P),dw(P),dh(P)这四个变换。下一步就是设计算法那得到这四个映射。</p>
 <p>线性回归就是给定输入的特征向量 X, 学习一组参数 W, 使得经过线性回归后的值跟真实值 Y(Ground Truth)非常接近. 即Y≈WXY≈WX 。 那么 Bounding-box 中我们的输入以及输出分别是什么呢？</p>
 <h4 id="ROI-Pooling-层"><a href="#ROI-Pooling-层" class="headerlink" title="ROI Pooling 层"></a>ROI Pooling 层</h4><p>输入RPN层产生的region proposal，也就是在原图上的回归后的anchor（region）转化而成的feature框，再输入原feature map（如果是VGG net就是将region缩小16倍）。根据ROI Pooling 层的网络参数，pooled_w:7,pooled_h:7将区域划分为7×7个区域，每个小区域上max pooling形成一个7×7的feature map。将例如300个region proposal遍历，形成[300，512，7，7]的张量输入到全连接层。</p>
-<p><img src="Faster-RCNN-理解笔记/FC.png" alt="FC"></p>
+<p><img src="/images/Faster-RCNN-理解笔记/FC.png" alt="FC"></p>
 <p>之后就比较好理解了，做了分类和第二次更精确的回归。</p>
 
     </article>
@@ -592,7 +592,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#整体结构"><span class="toc-number">1.</span> <span class="toc-text">整体结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络结构"><span class="toc-number">2.</span> <span class="toc-text">网络结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Conv-layers"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.Conv layers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-RPN-Region-Proposal-Networks"><span class="toc-number">2.0.2.</span> <span class="toc-text">2.RPN(Region Proposal Networks)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Anchor生成"><span class="toc-number">2.0.2.0.1.</span> <span class="toc-text">Anchor生成</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Bounding-Box-regression"><span class="toc-number">2.0.2.0.2.</span> <span class="toc-text">Bounding Box regression</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ROI-Pooling-层"><span class="toc-number">2.0.3.</span> <span class="toc-text">ROI Pooling 层</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#整体结构"><span class="toc-number">1.</span> <span class="toc-text">整体结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络结构"><span class="toc-number">2.</span> <span class="toc-text">网络结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Conv-layers"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.Conv layers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-RPN-Region-Proposal-Networks"><span class="toc-number">2.0.2.</span> <span class="toc-text">2.RPN(Region Proposal Networks)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Anchor生成"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">Anchor生成</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Bounding-Box-regression"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">Bounding Box regression</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ROI-Pooling-层"><span class="toc-number">2.0.3.</span> <span class="toc-text">ROI Pooling 层</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
