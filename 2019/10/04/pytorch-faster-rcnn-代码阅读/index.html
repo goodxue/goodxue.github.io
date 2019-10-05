@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.2k</span>阅读时长: <span class="post-count reading-time">9 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -444,6 +444,41 @@ height:50vh;
 <h3 id="网络的损失函数-add-loss"><a href="#网络的损失函数-add-loss" class="headerlink" title="网络的损失函数 _add_loss():"></a>网络的损失函数 _add_loss():</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_add_losses</span><span class="params">(self, sigma_rpn=<span class="number">3.0</span>)</span>:</span></span><br><span class="line">  <span class="comment"># RPN, class loss</span></span><br><span class="line">  rpn_cls_score = self._predictions[<span class="string">'rpn_cls_score_reshape'</span>].view(<span class="number">-1</span>, <span class="number">2</span>)</span><br><span class="line">  rpn_label = self._anchor_targets[<span class="string">'rpn_labels'</span>].view(<span class="number">-1</span>)</span><br><span class="line">  rpn_select = Variable((rpn_label.data != <span class="number">-1</span>).nonzero().view(<span class="number">-1</span>))</span><br><span class="line">  rpn_cls_score = rpn_cls_score.index_select(<span class="number">0</span>, rpn_select).contiguous().view(<span class="number">-1</span>, <span class="number">2</span>)</span><br><span class="line">  rpn_label = rpn_label.index_select(<span class="number">0</span>, rpn_select).contiguous().view(<span class="number">-1</span>)</span><br><span class="line">  rpn_cross_entropy = F.cross_entropy(rpn_cls_score, rpn_label)</span><br><span class="line">  <span class="comment">#交叉熵损失</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># RPN, bbox loss</span></span><br><span class="line">  rpn_bbox_pred = self._predictions[<span class="string">'rpn_bbox_pred'</span>]</span><br><span class="line">  rpn_bbox_targets = self._anchor_targets[<span class="string">'rpn_bbox_targets'</span>]</span><br><span class="line">  rpn_bbox_inside_weights = self._anchor_targets[<span class="string">'rpn_bbox_inside_weights'</span>]</span><br><span class="line">  rpn_bbox_outside_weights = self._anchor_targets[<span class="string">'rpn_bbox_outside_weights'</span>]</span><br><span class="line">  rpn_loss_box = self._smooth_l1_loss(rpn_bbox_pred, rpn_bbox_targets, rpn_bbox_inside_weights,</span><br><span class="line">                                        rpn_bbox_outside_weights, sigma=sigma_rpn, dim=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">  <span class="comment">#L1 loss</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># RCNN, class loss</span></span><br><span class="line">  cls_score = self._predictions[<span class="string">"cls_score"</span>]</span><br><span class="line">  label = self._proposal_targets[<span class="string">"labels"</span>].view(<span class="number">-1</span>)</span><br><span class="line">  cross_entropy = F.cross_entropy(cls_score.view(<span class="number">-1</span>, self._num_classes), label)</span><br><span class="line"></span><br><span class="line">  <span class="comment"># RCNN, bbox loss</span></span><br><span class="line">  bbox_pred = self._predictions[<span class="string">'bbox_pred'</span>]</span><br><span class="line">  bbox_targets = self._proposal_targets[<span class="string">'bbox_targets'</span>]</span><br><span class="line">  bbox_inside_weights = self._proposal_targets[<span class="string">'bbox_inside_weights'</span>]</span><br><span class="line">  bbox_outside_weights = self._proposal_targets[<span class="string">'bbox_outside_weights'</span>]</span><br><span class="line">  loss_box = self._smooth_l1_loss(bbox_pred, bbox_targets, bbox_inside_weights, bbox_outside_weights)</span><br><span class="line"></span><br><span class="line">  self._losses[<span class="string">'cross_entropy'</span>] = cross_entropy</span><br><span class="line">  self._losses[<span class="string">'loss_box'</span>] = loss_box</span><br><span class="line">  self._losses[<span class="string">'rpn_cross_entropy'</span>] = rpn_cross_entropy</span><br><span class="line">  self._losses[<span class="string">'rpn_loss_box'</span>] = rpn_loss_box</span><br><span class="line"></span><br><span class="line">  loss = cross_entropy + loss_box + rpn_cross_entropy + rpn_loss_box</span><br><span class="line">  self._losses[<span class="string">'total_loss'</span>] = loss</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> k <span class="keyword">in</span> self._losses.keys():</span><br><span class="line">    self._event_summaries[k] = self._losses[k]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
 <h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>RPN在提取的特征上首先进行一个3x3卷积，有人说是进行语义空间的转换。然后使用1x1卷积分别进行二分类和位置回归。这里着重要明白这两个卷积就是进行分类和回归的操作，一开始我一直不理解这个卷积，还以为分类与回归的操作是后面使用某些fc层来实现的。其实，RPN就是一个全卷积的网络，<em>这样对于输入的图片尺度没有了要求</em>（<a href="https://www.jianshu.com/p/9da1f0756813" target="_blank" rel="noopener">参考</a>）。</p>
 <p>例如分类时使用的卷积核的通道数为9x2，每个像素点9个anchor，每个anchor进行二分类，使用交叉熵损失函数。回归时使用9x4个通道。</p>
+<hr>
+<p>10.5更新</p>
+<p><img src="/images/pytorch-faster-rcnn-代码阅读/2.png" alt="img"></p>
+<h5 id="三个layer"><a href="#三个layer" class="headerlink" title="三个layer"></a>三个layer</h5><p>在训练部分有三个layer，一开始一直搞不清楚各自的功能</p>
+<ul>
+<li><p>_proposal_layer</p>
+<p>这个layer在训练和预测时都会去使用，输入的是前面1x1卷积得到的预测的bbox位置（实际上是增量▲x，▲y，▲h，▲w等加到对应的anchor上），用来将人为定义的上万个anchor，根据nms等规则排除（定义的长宽阈值，前多少名的socre排序【score也是另一路1x1卷积得到的】，NMS，再次排名等），生成一定数量的rois，返回得到的roi和各roi的相应得分。</p>
+</li>
+</ul>
+<ul>
+<li><p>_anchor_target_layer</p>
+<p>为每个gt分配anchor。用来判断所有的anchor属于前景还是后景，只在训练的时候使用。并且判断和gt的交并比，然后得到anchor的学习目标，个人理解是为了在后面的时候让anchor可以训练到回归位置。也就是上面所说的偏移量？（待证）</p>
+<ul>
+<li><p>对生成的每个Anchor box进行过滤和标记，（<strong>因为使用默认的anchor，所以不需要传入1x1卷积后的偏移量，只需要传入另一路预测分类的概率值</strong>），参照源码，过滤和标记规则如下：</p>
+<p>①    去除掉超过1000*600这原图的边界的anchor box</p>
+</li>
+</ul>
+<p>​       ②    如果anchor box与ground truth的IoU值最大，标记为正样本，label=1</p>
+<p>​       ③    如果anchor box与ground truth的IoU&gt;0.7，标记为正样本，label=1</p>
+<p>​       ④    如果anchor box与ground truth的IoU&lt;0.3，标记为负样本，label=0</p>
+<p>​    剩下的既不是正样本也不是负样本，不用于最终训练，label=-1</p>
+<ul>
+<li><p>除了对anchor box进行标记外，另一件事情就是计算anchor box与ground truth之间的偏移量</p>
+<p>令：ground truth:标定的框也对应一个中心点位置坐标x<em>,y</em>和宽高w<em>,h</em></p>
+<p>anchor box: 中心点位置坐标x_a,y_a和宽高w_a,h_a<br>所以，偏移量：</p>
+</li>
+</ul>
+<p>​       △x=(x<em>-x_a)/w_a   △y=(y</em>-y_a)/h_a </p>
+<p>​       △w=log(w<em>/w_a)   △h=log(h</em>/h_a)</p>
+<p>​    通过ground truth box与预测的anchor box之间的差异来进行学习，从而是    RPN网络中的权重能够学习到预测box的能力</p>
+</li>
+<li><p>_proposal_target_layer</p>
+<p>为每个gt分配proposal。负责在训练RoIHead/Fast R-CNN的时候，从RoIs选择一部分(比如128个)用以训练，生成roi的label。同时给定bbox回归的训练目标, 返回（sample_RoI, gt_RoI_loc, gt_RoI_label）</p>
+</li>
+</ul>
 
     </article>
     <!-- license  -->
@@ -596,7 +631,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#network-的基本层次结构"><span class="toc-number">1.</span> <span class="toc-text">network 的基本层次结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#init"><span class="toc-number">1.1.</span> <span class="toc-text">init__():</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#forward"><span class="toc-number">1.2.</span> <span class="toc-text">forward():</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#再来看self-predict-："><span class="toc-number">1.3.</span> <span class="toc-text">再来看self._predict()：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RPN层的实现"><span class="toc-number">2.</span> <span class="toc-text">RPN层的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络的损失函数-add-loss"><span class="toc-number">3.</span> <span class="toc-text">网络的损失函数 _add_loss():</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#小结"><span class="toc-number">3.1.</span> <span class="toc-text">小结</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#network-的基本层次结构"><span class="toc-number">1.</span> <span class="toc-text">network 的基本层次结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#init"><span class="toc-number">1.1.</span> <span class="toc-text">init__():</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#forward"><span class="toc-number">1.2.</span> <span class="toc-text">forward():</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#再来看self-predict-："><span class="toc-number">1.3.</span> <span class="toc-text">再来看self._predict()：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RPN层的实现"><span class="toc-number">2.</span> <span class="toc-text">RPN层的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络的损失函数-add-loss"><span class="toc-number">3.</span> <span class="toc-text">网络的损失函数 _add_loss():</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#小结"><span class="toc-number">3.1.</span> <span class="toc-text">小结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#三个layer"><span class="toc-number">3.1.1.</span> <span class="toc-text">三个layer</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -609,8 +644,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
     
     
     
