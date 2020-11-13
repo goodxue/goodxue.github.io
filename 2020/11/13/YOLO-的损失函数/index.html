@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Weipeng Studio</title>
+    <title>YOLO 的损失函数 · Weipeng Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">Weipeng Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">YOLO 的损失函数</a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">Weipeng Studio.</a>
 </header>
@@ -220,24 +231,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            YOLO 的损失函数
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">399</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/11/13</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,118 +399,71 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2020/11/13/YOLO-的损失函数/">
-            
-                <span>YOLO 的损失函数</span>
-        </a>
-        <div class="abstract-content">
-            需要理解下图坐标、置信度和分类参数意义
-网络最末端的卷积层输出的15×15大小的特征图，每一个像素的每一个通道都代表了一个输出指标。
-损失函数
-损失函数分为三部分，分别是BBox误差损失、IOU误差损失和类概率损失，重点需要理解IOU损失。
-注意求和的范围是每一个最终7乘7或15乘15的格子上的所有anchor
-BBox损失带有λcoord的部分，坐标位置采用均方误差，宽高采用开根号后的均方...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="需要理解下图坐标、置信度和分类参数意义"><a href="#需要理解下图坐标、置信度和分类参数意义" class="headerlink" title="需要理解下图坐标、置信度和分类参数意义"></a>需要理解下图坐标、置信度和分类参数意义</h3><p><img src="/images/YOLO-的损失函数/yolo.png" alt="img"></p>
+<p>网络最末端的卷积层输出的15×15大小的特征图，每一个像素的每一个通道都代表了一个输出指标。</p>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p><img src="/images/YOLO-的损失函数/loss.png" alt="img"></p>
+<p>损失函数分为三部分，分别是BBox误差损失、IOU误差损失和类概率损失，重点需要理解IOU损失。</p>
+<p>注意求和的范围是每一个最终7乘7或15乘15的格子上的所有anchor</p>
+<h4 id="BBox损失"><a href="#BBox损失" class="headerlink" title="BBox损失"></a>BBox损失</h4><p>带有λcoord的部分，坐标位置采用均方误差，宽高采用开根号后的均方误差。</p>
+<p>前面的1obj表示该单元格是否负责预测目标，是的话为1，否为0.</p>
+<p>原因是由于作者认为小的BBOX偏差大的话带来的精度影响大于同等大小偏差下的大的BBOX的偏差，因此开根号中和这种影响。</p>
+<h4 id="IOU（置信度）损失"><a href="#IOU（置信度）损失" class="headerlink" title="IOU（置信度）损失"></a>IOU（置信度）损失</h4><p>带有Ci的损失项，<em>C<strong>i</strong>j</em>=<em>Pr</em>(Object)∗IOU，表示该anchor的置信度</p>
+<ol>
+<li><p>对于负责预测的格子，计算其预测与GT的IOU损失</p>
+</li>
+<li><p>对于不负责的格子，找到所有置信小于阈值（如0.5或0.3）的格子，由于一幅图上负样本较多，前面加上权重系数λnoobj很小，防止负样本的损失贡献太大使得正样本的损失被忽略，导致网络训练不好。这一步只在网络初始训练时使用，中期末期可以忽略这一步。</p>
+</li>
+</ol>
+<h4 id="分类损失"><a href="#分类损失" class="headerlink" title="分类损失"></a>分类损失</h4><p>很好理解，就是类别的onehot向量均方损失。</p>
+
     </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/10/04/pytorch-faster-rcnn-代码阅读/">
-            
-                <span>pytorch-faster-rcnn 代码阅读</span>
-        </a>
-        <div class="abstract-content">
-            代码仓库来自：https://github.com/ruotianluo/pytorch-faster-rcnn
-首先代码的结构为
-本次重点记录一下最近看的基本网络结构，也就是加粗的部分
-
-frcnn
-
-layer_utils 
-
-roi_align
-roi_pooling
-预生成anchor的组件
-proposal_layer 
-proposal_target_layer
-anchor_t...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/09/07/Faster-RCNN 理解笔记/">
-            
-                <span>Faster-RCNN 理解笔记</span>
-        </a>
-        <div class="abstract-content">
-            Faster-RCNN 的网络框架如下：
-
-整体结构1.首先输入图片经过一个神经网络生成层次比较深的feature map，这个网络目前来说比较流行的就是resnet101，然后在这个feature map 上进行两个分支，其中一个输入到RPN网络。
-2.进行region的一个proposal，类似于rcnn中使用selective search进行的区域提取，在feature map上提取...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/07</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/10/04/flask-命令行运行报错：无法定位flask应用/" title="flask 命令行运行报错：无法定位flask应用">
+                    <div class="prevTitle">flask 命令行运行报错：无法定位flask应用</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80NDM0MS8yMDg3Mw==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -534,6 +548,24 @@ anchor_t...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#需要理解下图坐标、置信度和分类参数意义"><span class="toc-number">1.</span> <span class="toc-text">需要理解下图坐标、置信度和分类参数意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#损失函数"><span class="toc-number">2.</span> <span class="toc-text">损失函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BBox损失"><span class="toc-number">2.1.</span> <span class="toc-text">BBox损失</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IOU（置信度）损失"><span class="toc-number">2.2.</span> <span class="toc-text">IOU（置信度）损失</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分类损失"><span class="toc-number">2.3.</span> <span class="toc-text">分类损失</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -756,6 +788,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
