@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Weipeng Studio</title>
+    <title>Linux Shell 学习 · Weipeng Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">Weipeng Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Linux Shell 学习</a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">Weipeng Studio.</a>
 </header>
@@ -220,24 +231,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            Linux Shell 学习
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">356</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/11/21</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,82 +399,80 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/10/04/flask-命令行运行报错：无法定位flask应用/">
-            
-                <span>flask 命令行运行报错：无法定位flask应用</span>
-        </a>
-        <div class="abstract-content">
-            最近使用Flask配置命令行来进行数据库的管理时遇到了以下错误：
-123456Traceback (most recent call last):  File "c:\users\xue\documents\codings\virtualenv_ws\flask_ws\lib\site-packages\flask\cli.py", line 556, in list_commands   ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="Linux-Shell-学习记录"><a href="#Linux-Shell-学习记录" class="headerlink" title="Linux Shell 学习记录"></a>Linux Shell 学习记录</h2><p>发现要得心应手的使用Linux的话，学习Shell还是很有必要的，在此开启一个Shell的学习记录。</p>
+<h4 id="1-解压一个文件夹下的多个文件"><a href="#1-解压一个文件夹下的多个文件" class="headerlink" title="1.解压一个文件夹下的多个文件"></a>1.解压一个文件夹下的多个文件</h4><p>想要把一个文件夹下的数据集压缩文件统一解压，并且分别解压放到数据集同名的文件夹下。</p>
+<p>首先，解压文件的命令是：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xf name -C ./path</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>-x : 解包</p>
+<p>-f ：文件名</p>
+<p>-v ：可视化，终端显示解压进度（每一个文件）数据集太大就不显示了</p>
+<p>-c ：打包，与-x相对</p>
+<p>-z ：有压缩性质的，若和x搭配就是解压，和c搭配就是压缩打包，使用了gzip</p>
+</blockquote>
+<p>好了，下一步就是Shell命令了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in *.tar;</span><br><span class="line">do mkdir ./datasets/"$&#123;i%%.tar&#125;";</span><br><span class="line">tar -xf $i -C ./datasets/"$&#123;i%%.tar&#125;";</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>*.tar ：筛选文件夹下的带.tar的文件</p>
+<p>\$ ：关于文件名的需要带上  \$</p>
+<p>路径名带双引号</p>
+<p>%%：双百分号去掉名称尾部的.tar，这一操作带上大括号</p>
+<p>循环最后done，同时循环过程只有一个do</p>
+</blockquote>
+<p>成功达成了我的目的了hh~</p>
+<p>解压了十几分钟，下次在循环中加上print信息，好知道进度。</p>
+<p>有两个数据集压缩文件下载有问题，查看其md5和：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5sum name</span><br></pre></td></tr></table></figure>
+<p>和官网提供的md5一比对发现确实有问题，重新下载。</p>
+
     </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/10/04/pytorch-faster-rcnn-代码阅读/">
-            
-                <span>pytorch-faster-rcnn 代码阅读</span>
-        </a>
-        <div class="abstract-content">
-            代码仓库来自：https://github.com/ruotianluo/pytorch-faster-rcnn
-首先代码的结构为
-本次重点记录一下最近看的基本网络结构，也就是加粗的部分
-
-frcnn
-
-layer_utils 
-
-roi_align
-roi_pooling
-预生成anchor的组件
-proposal_layer 
-proposal_target_layer
-anchor_t...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2020/11/21/Pixhawk-Ubuntu18-04下仿真环境配置/" title="Pixhawk Ubuntu18.04下仿真环境配置">
+                    <div class="prevTitle">Pixhawk Ubuntu18.04下仿真环境配置</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80NDM0MS8yMDg3Mw==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -498,6 +557,24 @@ anchor_t...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-Shell-学习记录"><span class="toc-number">1.</span> <span class="toc-text">Linux Shell 学习记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-解压一个文件夹下的多个文件"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.解压一个文件夹下的多个文件</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -768,6 +845,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
