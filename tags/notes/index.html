@@ -346,6 +346,39 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2020/11/24/Nuscenes-数据集/">
+            
+                <span>Nuscenes 数据集</span>
+        </a>
+        <div class="abstract-content">
+            Nuscenes 数据集
+计算左边卡车的rot_y，即全局坐标系下的旋转（相对于图像x轴）
+123v = np.dot(ve[0].rotation_matrix, np.array([1, 0, 0]))yaw = -np.arctan2(v[2], v[0])print(yaw*180/np.pi)
+1&gt;&gt;-90.8701168926904
+一开始不能理解为什么是90度，后来...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/24</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2020/11/21/Linux-Shell-学习/">
             
                 <span>Linux Shell 学习</span>
@@ -805,9 +838,18 @@ anchor_t...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 10
+        Total : 11
         </div>
         <!-- search  -->
         
@@ -820,6 +862,11 @@ anchor_t...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href="/2020/11/24/Nuscenes-数据集/">Nuscenes 数据集</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -922,11 +969,11 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
+        <span class="sidebar-category-name" data-categories="DL"><span class="iconfont-archer">&#xe60a;</span>DL</span>
     
         <span class="sidebar-category-name" data-categories="environment"><span class="iconfont-archer">&#xe60a;</span>environment</span>
     
-        <span class="sidebar-category-name" data-categories="DL"><span class="iconfont-archer">&#xe60a;</span>DL</span>
+        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
     
         <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
