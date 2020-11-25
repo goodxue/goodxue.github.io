@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">345</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">644</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,9 +401,9 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="Nuscenes-数据集"><a href="#Nuscenes-数据集" class="headerlink" title="Nuscenes 数据集"></a>Nuscenes 数据集</h3><p><img src="/images/Nuscenes-数据集/1.png" alt="img"></p>
+        <h3 id="Nuscenes-数据集"><a href="#Nuscenes-数据集" class="headerlink" title="Nuscenes 数据集"></a>Nuscenes 数据集</h3><h4 id="1-旋转角初理解"><a href="#1-旋转角初理解" class="headerlink" title="1.旋转角初理解"></a>1.旋转角初理解</h4><p><img src="/images/Nuscenes-数据集/1.png" alt="img"></p>
 <p>计算左边卡车的rot_y，即全局坐标系下的旋转（相对于图像x轴）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">v = np.dot(ve[0].rotation_matrix, np.array([1, 0, 0]))</span><br><span class="line">yaw = -np.arctan2(v[2], v[0])</span><br><span class="line">print(yaw*180/np.pi)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">v = np.dot(ve[<span class="number">0</span>].rotation_matrix, np.array([<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]))</span><br><span class="line">yaw = -np.arctan2(v[<span class="number">2</span>], v[<span class="number">0</span>])</span><br><span class="line">print(yaw*<span class="number">180</span>/np.pi)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;-90.8701168926904</span><br></pre></td></tr></table></figure>
 <p>一开始不能理解为什么是90度，后来想明白了，这辆卡车虽然在图像上相对于ray（由相机射向卡车的射线）角度小于90°，但是其rot_y仍然是90°。正符合了3DB论文中的下图（世界线合并了！）</p>
 <p><img src="/images/Nuscenes-数据集/2.png" alt="img"></p>
@@ -415,6 +415,16 @@ height:50vh;
 <p>筛选boxes中的某一类框</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ve = [i <span class="keyword">for</span> i <span class="keyword">in</span> boxes <span class="keyword">if</span> i.name == <span class="string">'vehicle.truck'</span>]</span><br></pre></td></tr></table></figure>
 <p>说明的是name属性是str，直接查数据集标注中用的字符串即可。</p>
+<h4 id="2-旋转角理解深入"><a href="#2-旋转角理解深入" class="headerlink" title="2.旋转角理解深入"></a>2.旋转角理解深入</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">v = np.dot(ve[<span class="number">0</span>].rotation_matrix, np.array([<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]))</span><br><span class="line">yaw = -np.arctan2(v[<span class="number">2</span>], v[<span class="number">0</span>])</span><br><span class="line">print(yaw*<span class="number">180</span>/np.pi)</span><br></pre></td></tr></table></figure>
+<p>再回到第一个代码块，现在思考为什么旋转矩阵rotation_matrix在[1,0,0]这个轴上两个元素的反正切就是偏航。</p>
+<p><img src="/images/Nuscenes-数据集/3.png" alt="img"></p>
+<p>给出偏航角的旋转矩阵公式，当三维物体绕z轴进行旋转（xy平面转动），旋转的角度就是α，根据旋转矩阵计算旋转过后的坐标。这个很好推，我在纸上推了一下就得到了。</p>
+<p>那么如何算α就很好得知，使用第一列两个元素的反正切就可以算出来。</p>
+<p><img src="/images/Nuscenes-数据集/5.png" alt="img"></p>
+<p>然后是重点：<strong>Nuscenes数据集保存的bbox框是全局坐标系下的，也就是说是用的点云保存的，点云中物体的高度投影到z轴上，而在单目图像当中高度用y进行表示，因此需要进行坐标变换，将z转到y</strong></p>
+<p>看上图，相机坐标系y是向地面的，方向相反因此坐标变换还需要乘-1，这也是为什么计算反正切需要乘-1.</p>
+<p><img src="/images/Nuscenes-数据集/4.png" alt="img"></p>
+<hr>
 <p>花费一整天看明白了数据集，还是蛮高兴的~</p>
 <p>最后标记一篇<a href="https://my.oschina.net/u/4359017/blog/4491211" target="_blank" rel="noopener">好文章</a>。</p>
 <p>还有<a href="https://towardsdatascience.com/orientation-estimation-in-monocular-3d-object-detection-f850ace91411" target="_blank" rel="noopener">一篇</a>。</p>
@@ -565,7 +575,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuscenes-数据集"><span class="toc-number">1.</span> <span class="toc-text">Nuscenes 数据集</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuscenes-数据集"><span class="toc-number">1.</span> <span class="toc-text">Nuscenes 数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-旋转角初理解"><span class="toc-number">1.1.</span> <span class="toc-text">1.旋转角初理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-旋转角理解深入"><span class="toc-number">1.2.</span> <span class="toc-text">2.旋转角理解深入</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
