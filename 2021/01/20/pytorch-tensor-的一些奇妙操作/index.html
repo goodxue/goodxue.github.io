@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>flask 命令行运行报错：无法定位flask应用 · Weipeng Studio</title>
+    <title>pytorch tensor 的一些奇妙操作 · Weipeng Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">Weipeng Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">flask 命令行运行报错：无法定位flask应用</a>
+                <a href="#" class="post-name">pytorch tensor 的一些奇妙操作</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            flask 命令行运行报错：无法定位flask应用
+            pytorch tensor 的一些奇妙操作
             <!-- 404 -->
             
         </h1>
@@ -272,12 +272,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">606</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.5k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/10/04</span>
+                    <span class="post-intro-time">2021/01/20</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,17 +401,73 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>最近使用Flask配置命令行来进行数据库的管理时遇到了以下错误：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"c:\users\xue\documents\codings\virtualenv_ws\flask_ws\lib\site-packages\flask\cli.py"</span>, line <span class="number">556</span>, <span class="keyword">in</span> list_commands</span><br><span class="line">    rv.update(info.load_app().cli.list_commands(ctx))</span><br><span class="line">  File <span class="string">"c:\users\xue\documents\codings\virtualenv_ws\flask_ws\lib\site-packages\flask\cli.py"</span>, line <span class="number">399</span>, <span class="keyword">in</span> load_app</span><br><span class="line">    <span class="string">"Could not locate a Flask application. You did not provide "</span></span><br><span class="line">flask.cli.NoAppException: Could <span class="keyword">not</span> locate a Flask application. You did <span class="keyword">not</span> provide the <span class="string">"FLASK_APP"</span> environment variable, <span class="keyword">and</span> a <span class="string">"wsgi.py"</span> <span class="keyword">or</span> <span class="string">"app.py"</span> module was <span class="keyword">not</span> found <span class="keyword">in</span> the current directory.</span><br></pre></td></tr></table></figure>
-<p>原本在练习flask_blog的时候也使用了这种方法，但是没有报错，这次在新项目中报错了，很大的原因是python环境配置的原因，于是好奇心让我去一探究竟。</p>
-<p>在 __init__.py 文件中定义注册了flask命令行的选项</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register_commands</span><span class="params">(app)</span>:</span></span><br><span class="line"><span class="meta">    @app.cli.command()</span></span><br><span class="line"><span class="meta">    @click.option('--drop', is_flag=True, help='Create after drop.')</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">initdb</span><span class="params">(drop)</span>:</span></span><br><span class="line">        <span class="string">"""Initialize the database."""</span></span><br><span class="line">        <span class="keyword">if</span> drop:</span><br><span class="line">            click.confirm(<span class="string">'This operation will delete the database, do you want to continue?'</span>, abort=<span class="literal">True</span>)</span><br><span class="line">            db.drop_all()</span><br><span class="line">            click.echo(<span class="string">'Drop tables.'</span>)</span><br><span class="line">        db.create_all()</span><br><span class="line">        click.echo(<span class="string">'Initialized database.'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @app.cli.command()</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="string">"""Initialize Albumy."""</span></span><br><span class="line">        click.echo(<span class="string">'Initializing the database...'</span>)</span><br><span class="line">        db.create_all()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># click.echo('Initializing the roles and permissions...')</span></span><br><span class="line">        <span class="comment"># Role.init_role()</span></span><br><span class="line"></span><br><span class="line">        click.echo(<span class="string">'Done.'</span>)</span><br><span class="line"><span class="meta">    @app.cli.command()</span></span><br><span class="line"><span class="meta">    @click.option('--user', default=10, help='Quantity of users, default is 10.')</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forge</span><span class="params">(user)</span>:</span></span><br><span class="line">        <span class="string">"""Generate fake data."""</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">from</span> Albumy.fake <span class="keyword">import</span> fake_user</span><br><span class="line"></span><br><span class="line">        db.drop_all()</span><br><span class="line">        db.create_all()</span><br><span class="line"></span><br><span class="line">        click.echo(<span class="string">'Generating %d users...'</span> % user)</span><br><span class="line">        fake_user()</span><br><span class="line">        click.echo(<span class="string">'Done.'</span>)</span><br></pre></td></tr></table></figure>
-<p>这个代码可以在启动flask服务器后，使用flask命令去执行自定义操作。</p>
+        <p>罪魁祸首是CenterNet代码中，在计算loss前进行的gather feature操作，说实话这个操作初见简直蒙圈，我缓了将近三个月才缓明白这个到底在干嘛。</p>
+<p>上代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_gather_feat</span><span class="params">(feat, ind, mask=None)</span>:</span></span><br><span class="line">    dim  = feat.size(<span class="number">2</span>)</span><br><span class="line">    ind  = ind.unsqueeze(<span class="number">2</span>).expand(ind.size(<span class="number">0</span>), ind.size(<span class="number">1</span>), dim)</span><br><span class="line">    feat = feat.gather(<span class="number">1</span>, ind)</span><br><span class="line">    <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        mask = mask.unsqueeze(<span class="number">2</span>).expand_as(feat)</span><br><span class="line">        feat = feat[mask]</span><br><span class="line">        feat = feat.view(<span class="number">-1</span>, dim)</span><br><span class="line">    <span class="keyword">return</span> feat</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_transpose_and_gather_feat</span><span class="params">(feat, ind)</span>:</span></span><br><span class="line">    feat = feat.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>).contiguous()</span><br><span class="line">    feat = feat.view(feat.size(<span class="number">0</span>), <span class="number">-1</span>, feat.size(<span class="number">3</span>))</span><br><span class="line">    feat = _gather_feat(feat, ind)</span><br><span class="line">    <span class="keyword">return</span> feat</span><br></pre></td></tr></table></figure>
+<p>比如计算dep损失前的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dep_loss += self.crit_reg(output[<span class="string">'dep'</span>], batch[<span class="string">'reg_mask'</span>],</span><br><span class="line">                                  batch[<span class="string">'ind'</span>], batch[<span class="string">'dep'</span>]) / opt.num_stacks</span><br><span class="line"></span><br><span class="line"><span class="comment">#crit_reg中第一行就是gather feature</span></span><br><span class="line"></span><br><span class="line">pred = _transpose_and_gather_feat(output, ind)</span><br></pre></td></tr></table></figure>
+<p>将网络输出的深度，加上一个dataloader输出一个batch的gt中的reg_mask和ind(最后才理解这个ind指index，说实话之前想过是index但是你放神经网络代码里能明白这到底在干嘛吗，后面细说这个)和gt的深度，简直看蒙了。</p>
+<p>要理解这一行就需要把最初gather feature看明白，下面就开始吧</p>
 <hr>
-<p>回到问题中来，我之前使用pipenv创建了虚拟环境，该虚拟环境创建在了之前项目的目录中，然后这次我还是在那个环境中，切换到了新项目的文件夹下运行python文件。换句话说就是，在老环境中运行新项目。</p>
-<p>这也许就会导致虚拟环境中的flask无法找到当前运行的app的位置。</p>
-<p>在flask中经常涉及到<strong>上下文</strong>的概念，因为flask允许在一个解释器中运行多个flask应用程序（我的理解就是对于解释器来说，所有python代码都是一样的，那么我们区分这个python代码是哪一个应用程序的就需要用到上下文的概念）</p>
-<p>那么这个问题应该也是默认多个应用程序所导致的，查找资料得到，在终端中需要手动设定当前的app是哪一个，<code>set FLASK_APP=main.py</code> 这样之后再使用flask命令就可以正确对应到当前的app上啦。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_transpose_and_gather_feat</span><span class="params">(feat, ind)</span>:</span></span><br><span class="line">    feat = feat.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>).contiguous()</span><br><span class="line">    feat = feat.view(feat.size(<span class="number">0</span>), <span class="number">-1</span>, feat.size(<span class="number">3</span>))</span><br><span class="line">    feat = _gather_feat(feat, ind)</span><br><span class="line">    <span class="keyword">return</span> feat</span><br></pre></td></tr></table></figure>
+<p>ind是一个（B，max_obj）维度张量，在一个B中表示图中某一个点的坐标上是hm的峰值，数值是ct[0]+ct[1]* img.w，图像宽×y + x。后面细说。</p>
+<p>1.首先第一句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feat = feat.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>).contiguous()</span><br></pre></td></tr></table></figure>
+<p>将tensor的维度进行变换。将B C H W 转为 B H W C。</p>
+<p>举个栗子，torch.size(1,2,3,4)经过转换过后变成 torch.size(1,3,4,2)。</p>
+<p>permute参数中每一个代表变换后这个位置的维度数字是变换前的第几个，栗子中将原本第1个位置（从0开始）的[2]放到了第3个位置（也就是最后）</p>
+<p>contiguous的作用是让tensor在计算机中存储变成连续的，因为permute变换没有改变物理存储结构。</p>
+<p>2.第二句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feat = feat.view(feat.size(<span class="number">0</span>), <span class="number">-1</span>, feat.size(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<p>view作用也是变换维度，和permute不同，这个改变物理结构，同时可以实现将tensor展开（而permute必须size相同）</p>
+<p>参数-1代表自动进行维数匹配。</p>
+<p>举个栗子，torch.size(2,3,3,2)进行上面的view后变成torch.size(2,9,2)</p>
+<p>3.第三句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_gather_feat</span><span class="params">(feat, ind, mask=None)</span>:</span></span><br><span class="line">    dim  = feat.size(<span class="number">2</span>)</span><br><span class="line">    ind  = ind.unsqueeze(<span class="number">2</span>).expand(ind.size(<span class="number">0</span>), ind.size(<span class="number">1</span>), dim)</span><br><span class="line">    feat = feat.gather(<span class="number">1</span>, ind)</span><br><span class="line">    <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        mask = mask.unsqueeze(<span class="number">2</span>).expand_as(feat)</span><br><span class="line">        feat = feat[mask]</span><br><span class="line">        feat = feat.view(<span class="number">-1</span>, dim)</span><br><span class="line">    <span class="keyword">return</span> feat</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ind  = ind.unsqueeze(<span class="number">2</span>).expand(ind.size(<span class="number">0</span>), ind.size(<span class="number">1</span>), dim)</span><br></pre></td></tr></table></figure>
+<p>需要记住的是，ind的维度是[batch, max_obj]是2维的，max_obj是设定的一幅图像当中最多目标的个数，可以自己任意设置。经过前两句的变换，输入feat的维度是B -1 C，（-1待表H×W），是3维的。</p>
+<p>肯定要把维数变得一样，那么就unsqueeze(2)，在第3个轴进行增维。</p>
+<p>举个栗子：</p>
+<p>[[2,0,0,0], [1,3,4,5]] ==&gt; [ [ [2],[0],[0],[0] ], [ [1],[3],[4],[5] ] ] size(2,4,1)</p>
+<p>如果unsqueeze(0) ==&gt; [ [ [2,0,0,0], [1,3,4,5 ] ] ]  size(1,2,3)</p>
+<p>如果unsqueeze(1) ==&gt;  [ [ [2,0,0,0] ], [ [1,3,4,5] ] ]  size(2,1,4)</p>
+<p>这样就变成了3维的。</p>
+<p>4.接下来史诗级难点！！！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feat = feat.gather(<span class="number">1</span>, ind)</span><br></pre></td></tr></table></figure>
+<p>官网给出的解释：</p>
+<p>Gathers values along an axis specified by dim.</p>
+<p>For a 3-D tensor the output is specified by:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">out[i][j][k] = input[index[i][j][k]][j][k]  <span class="comment"># if dim == 0</span></span><br><span class="line">out[i][j][k] = input[i][index[i][j][k]][k]  <span class="comment"># if dim == 1</span></span><br><span class="line">out[i][j][k] = input[i][j][index[i][j][k]]  <span class="comment"># if dim == 2</span></span><br></pre></td></tr></table></figure>
+<p>If <code>input</code> is an n-dimensional tensor with size (x_0, x_1…, x_{i-1}, x_i, x_{i+1}, …, x_{n-1})(<em>x</em>0,<em>x</em>1…,<em>x**i</em>−1,<em>x**i</em>,<em>x**i</em>+1,…,<em>x**n</em>−1) and <code>dim = i</code>, then <code>index</code> must be an n<em>n</em> -dimensional tensor with size (x_0, x_1, …, x_{i-1}, y, x_{i+1}, …, x_{n-1})(<em>x</em>0,<em>x</em>1,…,<em>x**i</em>−1,<em>y</em>,<em>x**i</em>+1,…,<em>x**n</em>−1) where y \geq 1<em>y</em>≥1 and <code>out</code> will have the same size as <code>index</code>.</p>
+<p>已经晕了是不是，但是要用语言解释的话就是，在input的选的维度上的数值使用同位置的index位置上的数值来代替。</p>
+<p>要理解为什么gather就可以将BHWC中关键点用ind提取出来，明确ind中记录的是原先HW上一点x+W×y。再将这个放到gather的功能里面去看，只可意会啊啊啊，理解起来不容易，感觉这样说都是废话，但是目前我也是意会阶段，逐元素推导有点麻烦。</p>
+<p>若一个size(1,H,W,C)的input如下size(1,3,3,2)，将C放到一个格子里。</p>
+<table>
+<thead>
+<tr>
+<th>0,1</th>
+<th>2,3</th>
+<th>4,5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6,7</td>
+<td>8,9</td>
+<td>10,11</td>
+</tr>
+<tr>
+<td>12,13</td>
+<td>14,15</td>
+<td>16,17</td>
+</tr>
+</tbody>
+</table>
+<p>那么设ind为[2，5，6]</p>
+<p>进行下面的实验</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;input = np.empty([<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>],dtype=np.int64)</span><br><span class="line">&gt;&gt;&gt;<span class="keyword">for</span> x <span class="keyword">in</span> np.nditer(input,op_flags=[<span class="string">'readwrite'</span>]):</span><br><span class="line"><span class="meta">... </span> x[...] = count</span><br><span class="line"><span class="meta">... </span> count +=<span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>input = torch.from_numpy(input)</span><br><span class="line">&gt;&gt;&gt;input</span><br><span class="line">tensor([[[[ <span class="number">0</span>,  <span class="number">1</span>],</span><br><span class="line">          [ <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">          [ <span class="number">4</span>,  <span class="number">5</span>]],</span><br><span class="line"></span><br><span class="line">         [[ <span class="number">6</span>,  <span class="number">7</span>],</span><br><span class="line">          [ <span class="number">8</span>,  <span class="number">9</span>],</span><br><span class="line">          [<span class="number">10</span>, <span class="number">11</span>]],</span><br><span class="line"></span><br><span class="line">         [[<span class="number">12</span>, <span class="number">13</span>],</span><br><span class="line">          [<span class="number">14</span>, <span class="number">15</span>],</span><br><span class="line">          [<span class="number">16</span>, <span class="number">17</span>]]],</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        [[[<span class="number">18</span>, <span class="number">19</span>],</span><br><span class="line">          [<span class="number">20</span>, <span class="number">21</span>],</span><br><span class="line">          [<span class="number">22</span>, <span class="number">23</span>]],</span><br><span class="line"></span><br><span class="line">         [[<span class="number">24</span>, <span class="number">25</span>],</span><br><span class="line">          [<span class="number">26</span>, <span class="number">27</span>],</span><br><span class="line">          [<span class="number">28</span>, <span class="number">29</span>]],</span><br><span class="line"></span><br><span class="line">         [[<span class="number">30</span>, <span class="number">31</span>],</span><br><span class="line">          [<span class="number">32</span>, <span class="number">33</span>],</span><br><span class="line">          [<span class="number">34</span>, <span class="number">35</span>]]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ind = np.zeros([<span class="number">2</span>,<span class="number">5</span>],dtype=np.int64)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ind[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ind[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ind[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ind</span><br><span class="line">array([[<span class="number">2</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]])</span><br><span class="line">&gt;&gt;&gt;ind = torch.from_numpy(ind)</span><br><span class="line">&gt;&gt;&gt;input2 = input.view(input.size(<span class="number">0</span>),<span class="number">-1</span>,input.size(<span class="number">3</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>input2.shape</span><br><span class="line">torch.Size([<span class="number">2</span>, <span class="number">9</span>, <span class="number">2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ind2  = ind.unsqueeze(<span class="number">2</span>).expand(ind.size(<span class="number">0</span>), ind.size(<span class="number">1</span>), input2.size(<span class="number">2</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ind2</span><br><span class="line">tensor([[[<span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">         [<span class="number">5</span>, <span class="number">5</span>],</span><br><span class="line">         [<span class="number">6</span>, <span class="number">6</span>],</span><br><span class="line">         [<span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">         [<span class="number">0</span>, <span class="number">0</span>]],</span><br><span class="line"></span><br><span class="line">        [[<span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">         [<span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">         [<span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">         [<span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">         [<span class="number">0</span>, <span class="number">0</span>]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>feat = input2.gather(<span class="number">1</span>,ind2)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>feat</span><br><span class="line">tensor([[[ <span class="number">4</span>,  <span class="number">5</span>],</span><br><span class="line">         [<span class="number">10</span>, <span class="number">11</span>],</span><br><span class="line">         [<span class="number">12</span>, <span class="number">13</span>],</span><br><span class="line">         [ <span class="number">0</span>,  <span class="number">1</span>],</span><br><span class="line">         [ <span class="number">0</span>,  <span class="number">1</span>]],</span><br><span class="line"></span><br><span class="line">        [[<span class="number">18</span>, <span class="number">19</span>],</span><br><span class="line">         [<span class="number">18</span>, <span class="number">19</span>],</span><br><span class="line">         [<span class="number">18</span>, <span class="number">19</span>],</span><br><span class="line">         [<span class="number">18</span>, <span class="number">19</span>],</span><br><span class="line">         [<span class="number">18</span>, <span class="number">19</span>]]])</span><br></pre></td></tr></table></figure>
+<p>观察feat的第一个Batch，前三个正是表格中第2，5，6个格子！（从0开始）。这样就得到了我们需要的feature的像素点。至于其他的格子，我们使用之前传入的reg_mask，在不是hm峰值的部分为0，峰值处为1，则将feat的其余部分置为了0，在训练时不会计算loss。</p>
+<p>到了这里相信你已经意会了，还有啥不明白的做个实验尝试一下应该没问题啦\^V\^</p>
 
     </article>
     <!-- license  -->
@@ -420,17 +476,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2020/11/13/YOLO-的损失函数/" title="YOLO 的损失函数">
-                    <div class="nextTitle">YOLO 的损失函数</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/10/04/pytorch-faster-rcnn-代码阅读/" title="pytorch-faster-rcnn 代码阅读">
-                    <div class="prevTitle">pytorch-faster-rcnn 代码阅读</div>
+                <a href="/2020/11/24/Nuscenes-数据集/" title="Nuscenes 数据集">
+                    <div class="prevTitle">Nuscenes 数据集</div>
                 </a>
             
         </li>

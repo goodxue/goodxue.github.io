@@ -346,6 +346,37 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2021/01/20/pytorch-tensor-的一些奇妙操作/">
+            
+                <span>pytorch tensor 的一些奇妙操作</span>
+        </a>
+        <div class="abstract-content">
+            罪魁祸首是CenterNet代码中，在计算loss前进行的gather feature操作，说实话这个操作初见简直蒙圈，我缓了将近三个月才缓明白这个到底在干嘛。
+上代码：
+123456789101112131415def _gather_feat(feat, ind, mask=None):    dim  = feat.size(2)    ind  = ind.unsqueeze(2)....
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/01/20</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2020/11/24/Nuscenes-数据集/">
             
                 <span>Nuscenes 数据集</span>
@@ -697,9 +728,18 @@ anchor_t...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 11
+        Total : 12
         </div>
         <!-- search  -->
         
@@ -709,6 +749,20 @@ anchor_t...
     
     
     
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href="/2021/01/20/pytorch-tensor-的一些奇妙操作/">pytorch tensor 的一些奇妙操作</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
