@@ -78,6 +78,8 @@
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -201,10 +203,8 @@
 </head>
 
     
-        <body class="home-body">
     
-    
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
@@ -220,34 +220,21 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/index_nwpu-min.jpeg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Weipeng Studio.
-            <!-- 文章页  -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
-            
-            
-                他强任他强，清风拂山岗
-            
-            <!-- 文章页  -->
             
         </p>
         <!-- 文章页meta -->
@@ -385,397 +372,10 @@ height:50vh;
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2021/03/22/Carla的坐标变换/">
-            
-                <span>Carla的坐标变换</span>
-        </a>
-        <div class="abstract-content">
-            Carla的坐标变换carla仿真器是基于unreal引擎的，因此底层的世界坐标也是unreal的世界坐标系。
-为了完成毕设任务，需要去了解carla每个actor之间的坐标变换。如每个相机间的相对位置，车辆与相机的相对位置。
-总体上carla的坐标系方向为：x-&gt;forward, y-&gt;right, z-&gt;height
-系统的原点即为location:(0,0,0),Or...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/03/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2021/01/20/pytorch-tensor-的一些奇妙操作/">
-            
-                <span>pytorch tensor 的一些奇妙操作</span>
-        </a>
-        <div class="abstract-content">
-            罪魁祸首是CenterNet代码中，在计算loss前进行的gather feature操作，说实话这个操作初见简直蒙圈，我缓了将近三个月才缓明白这个到底在干嘛。
-上代码：
-123456789101112131415def _gather_feat(feat, ind, mask=None):    dim  = feat.size(2)    ind  = ind.unsqueeze(2)....
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/01/20</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2020/11/24/Nuscenes-数据集/">
-            
-                <span>Nuscenes 数据集</span>
-        </a>
-        <div class="abstract-content">
-            Nuscenes 数据集1.旋转角初理解
-计算左边卡车的rot_y，即全局坐标系下的旋转（相对于图像x轴）
-123v = np.dot(ve[0].rotation_matrix, np.array([1, 0, 0]))yaw = -np.arctan2(v[2], v[0])print(yaw*180/np.pi)
-1&gt;&gt;-90.8701168926904
-一开始不能理解为什...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2020/11/21/Linux-Shell-学习/">
-            
-                <span>Linux Shell 学习</span>
-        </a>
-        <div class="abstract-content">
-            Linux Shell 学习记录发现要得心应手的使用Linux的话，学习Shell还是很有必要的，在此开启一个Shell的学习记录。
-1.解压一个文件夹下的多个文件想要把一个文件夹下的数据集压缩文件统一解压，并且分别解压放到数据集同名的文件夹下。
-首先，解压文件的命令是：
-1tar -xf name -C ./path
-
--x : 解包
--f ：文件名
--v ：可视化，终端显示解压进度（每一...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2020/11/21/Pixhawk-Ubuntu18-04下仿真环境配置/">
-            
-                <span>Pixhawk Ubuntu18.04下仿真环境配置</span>
-        </a>
-        <div class="abstract-content">
-            Pixhawk Ubuntu18.04下仿真环境配置打工人帮老板配环境ing…
-主要是配Pixhawk和ros的gazebo的仿真。
-网上的好多教程有些旧了，踩了坑记录一下
-最终还是按照官方教程走吧，否则很多配置问题
-下载PX4网上很多clone Firmware的，这个是比较旧的版本，很多新系统的配置问题没有解决，按照最新的来。
-1git clone https://github.com/...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2020/11/20/ubuntu-Clash-代理配置/">
-            
-                <span>ubuntu Clash 代理配置</span>
-        </a>
-        <div class="abstract-content">
-            ubuntu Clash 代理配置深澜下面ubuntu系统上网一直是一个问题，很多外网的配置文件和github的代码都不好下。下决心把服务器网络先给他配稳定了再继续后面的工作。
-下载Clash在github下载release版本clash
-1https://github.com/Dreamacro/clash/releases
-选择clash-linux-amd64-v1.3.0.gz
-安装...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/20</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2020/11/13/YOLO-的损失函数/">
-            
-                <span>YOLO 的损失函数</span>
-        </a>
-        <div class="abstract-content">
-            需要理解下图坐标、置信度和分类参数意义
-网络最末端的卷积层输出的15×15大小的特征图，每一个像素的每一个通道都代表了一个输出指标。
-损失函数
-损失函数分为三部分，分别是BBox误差损失、IOU误差损失和类概率损失，重点需要理解IOU损失。
-注意求和的范围是每一个最终7乘7或15乘15的格子上的所有anchor
-BBox损失带有λcoord的部分，坐标位置采用均方误差，宽高采用开根号后的均方...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/10/04/flask-命令行运行报错：无法定位flask应用/">
-            
-                <span>flask 命令行运行报错：无法定位flask应用</span>
-        </a>
-        <div class="abstract-content">
-            最近使用Flask配置命令行来进行数据库的管理时遇到了以下错误：
-123456Traceback (most recent call last):  File "c:\users\xue\documents\codings\virtualenv_ws\flask_ws\lib\site-packages\flask\cli.py", line 556, in list_commands   ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/10/04/pytorch-faster-rcnn-代码阅读/">
-            
-                <span>pytorch-faster-rcnn 代码阅读</span>
-        </a>
-        <div class="abstract-content">
-            代码仓库来自：https://github.com/ruotianluo/pytorch-faster-rcnn
-首先代码的结构为
-本次重点记录一下最近看的基本网络结构，也就是加粗的部分
-
-frcnn
-
-layer_utils 
-
-roi_align
-roi_pooling
-预生成anchor的组件
-proposal_layer 
-proposal_target_layer
-anchor_t...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a>
-    </nav>
     
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src="/avatar/bluesky.jpg">
-    <div class="profile-name">Weipeng Xue</div>
-    
-    <div class="profile-signature">
-        Coding is happiness
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:goodxue@gmial.com" class="iconfont-archer email" title="email"></a>
-            
-        
-    
-        
-            
-                <a href="//github.com/goodxue" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-            
-                <span class="iconfont-archer wechat" title="wechat">
-                  
-                  <img class="profile-qr" src="/assets/wechatQR.png">
-                </span>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    
-    
-        <div class="about-me">
-            <a href="/about">ABOUT ME</a>
-        </div>
-    
-</div>
             
         </div>
         <footer class="footer footer-unloaded">

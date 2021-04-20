@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Carla的坐标变换 · Weipeng Studio</title>
+    <title>Opencv 轮廓 contours的踩坑 · Weipeng Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">Weipeng Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Carla的坐标变换</a>
+                <a href="#" class="post-name">Opencv 轮廓 contours的踩坑</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Carla的坐标变换
+            Opencv 轮廓 contours的踩坑
             <!-- 404 -->
             
         </h1>
@@ -272,12 +272,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">126</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2021/03/22</span>
+                    <span class="post-intro-time">2021/04/20</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,62 +401,14 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="Carla的坐标变换"><a href="#Carla的坐标变换" class="headerlink" title="Carla的坐标变换"></a>Carla的坐标变换</h3><p>carla仿真器是基于unreal引擎的，因此底层的世界坐标也是unreal的世界坐标系。</p>
-<p>为了完成毕设任务，需要去了解carla每个actor之间的坐标变换。如每个相机间的相对位置，车辆与相机的相对位置。</p>
-<p>总体上carla的坐标系方向为：x-&gt;forward, y-&gt;right, z-&gt;height</p>
-<p>系统的原点即为location:(0,0,0),Orientation:(0,0,0)</p>
-<p><strong>那么每一个transform即为相对世界原点的坐标变换，同时也就是世界坐标</strong></p>
-<p>理解了上一句话对于整体的理解就很重要了（我是最后才明白了这个，一下子就豁然开朗了）</p>
-<h4 id="相对坐标变换"><a href="#相对坐标变换" class="headerlink" title="相对坐标变换"></a>相对坐标变换</h4><p>直接上官方的样例代码。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_bounding_box</span><span class="params">(vehicle, camera)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Returns 3D bounding box for a vehicle based on camera view.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    bb_cords = ClientSideBoundingBoxes._create_bb_points(vehicle)</span><br><span class="line">    cords_x_y_z = ClientSideBoundingBoxes._vehicle_to_sensor(bb_cords, vehicle, camera)[:<span class="number">3</span>, :]</span><br><span class="line">    cords_y_minus_z_x = np.concatenate([cords_x_y_z[<span class="number">1</span>, :], -cords_x_y_z[<span class="number">2</span>, :], cords_x_y_z[<span class="number">0</span>, :]])</span><br><span class="line">    bbox = np.transpose(np.dot(camera_coordinate(camera), cords_y_minus_z_x)) <span class="comment">#8×3</span></span><br><span class="line">    camera_bbox = np.concatenate([bbox[:, <span class="number">0</span>] / bbox[:, <span class="number">2</span>], bbox[:, <span class="number">1</span>] / bbox[:, <span class="number">2</span>], bbox[:, <span class="number">2</span>]], axis=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> camera_bbox</span><br></pre></td></tr></table></figure>
-<p>分别介绍每一句意义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_create_bb_points(vehicle) #获取了车辆的局部坐标系下的三维框的每一个顶点，局部坐标系原点就是3D框的几何中心</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_create_bb_points</span><span class="params">(vehicle)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Returns 3D bounding box for a vehicle.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    cords = np.zeros((<span class="number">8</span>, <span class="number">4</span>))</span><br><span class="line">    extent = vehicle.bounding_box.extent <span class="comment">#extent是一个指向一个顶点的向量，extent.x即0.5length(x轴方向，x:forward,y:right,z:height)</span></span><br><span class="line">    cords[<span class="number">0</span>, :] = np.array([extent.x, extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">1</span>, :] = np.array([-extent.x, extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">2</span>, :] = np.array([-extent.x, -extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">3</span>, :] = np.array([extent.x, -extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">4</span>, :] = np.array([extent.x, extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">5</span>, :] = np.array([-extent.x, extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">6</span>, :] = np.array([-extent.x, -extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">7</span>, :] = np.array([extent.x, -extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    <span class="keyword">return</span> cords</span><br></pre></td></tr></table></figure>
-<p>下一句：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClientSideBoundingBoxes._vehicle_to_sensor(bb_cords, vehicle, camera)[:<span class="number">3</span>, :]</span><br></pre></td></tr></table></figure>
-<p>将车辆的bbox坐标转换到了相机</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@staticmethod</span><br><span class="line">def _vehicle_to_sensor(cords, vehicle, sensor):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Transforms coordinates of a vehicle bounding box to sensor.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    world_cord = ClientSideBoundingBoxes._vehicle_to_world(cords, vehicle)</span><br><span class="line">    sensor_cord = ClientSideBoundingBoxes._world_to_sensor(world_cord, sensor)</span><br><span class="line">    return sensor_cord</span><br></pre></td></tr></table></figure>
-<p>分别是车辆到世界，世界再到相机，思路很清晰，先看第一个。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_vehicle_to_world</span><span class="params">(cords, vehicle)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Transforms coordinates of a vehicle bounding box to world.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    bb_transform = carla.Transform(vehicle.bounding_box.location)</span><br><span class="line">    bb_vehicle_matrix = ClientSideBoundingBoxes.get_matrix(bb_transform)</span><br><span class="line">    vehicle_world_matrix = ClientSideBoundingBoxes.get_matrix(vehicle.get_transform())</span><br><span class="line">    bb_world_matrix = np.dot(vehicle_world_matrix, bb_vehicle_matrix)</span><br><span class="line">    world_cords = np.dot(bb_world_matrix, np.transpose(cords))</span><br><span class="line">    <span class="keyword">return</span> world_cords</span><br></pre></td></tr></table></figure>
-<p>获取了车辆boundingbox的一个局部转换（boundingbox是相对车辆坐标系的，重复强调）</p>
-<p>get_matrix将这个转换变换为了变换矩阵形式（平移旋转4×4的矩阵）</p>
-<p>之后再获得车辆世界坐标系下的变换矩阵，点乘车辆世界变换矩阵和局部的boungdingbox的变换矩阵，获得了boundingbox到世界的变换矩阵。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_world_to_sensor</span><span class="params">(cords, sensor)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Transforms world coordinates to sensor.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    sensor_world_matrix = ClientSideBoundingBoxes.get_matrix(sensor.get_transform())</span><br><span class="line">    world_sensor_matrix = np.linalg.inv(sensor_world_matrix)</span><br><span class="line">    sensor_cords = np.dot(world_sensor_matrix, cords)</span><br><span class="line">    <span class="keyword">return</span> sensor_cords</span><br></pre></td></tr></table></figure>
-<p>之后将世界转换到相机坐标系下，同样的思路，获得世界坐标系下相机的世界矩阵（重复强调，就是相对于世界原点的变换矩阵）</p>
-<p>将这个世界（变换）矩阵求逆，就得到了将世界到相机坐标系下的变换矩阵，通过左乘世界坐标系下的世界坐标，将这个世界坐标转换到了相机坐标系下。从变量名看，sensor_world为相机到世界，逆就是world_sensor了嘛。</p>
-<p>注意输入的cord是一个8×4的局部坐标矩阵（第四维为补的1），输出为4×8（转置 了），主函数中取[:3,:]即获取了xyz的世界坐标。</p>
-<h5 id="Transform的含义"><a href="#Transform的含义" class="headerlink" title="Transform的含义"></a>Transform的含义</h5><p>carla定义的Transform就是一个变换，输出我设置的一个相机的世界Transform</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Transform(Location(x=-67,y=-126.5,z=5.0),Rotation(pitch=-14.999996,yaw=155.000031,roll=0.00000))</span><br></pre></td></tr></table></figure>
-<p>使用get_matrix将这个变换转换成了三维世界下的变换矩阵（4×4）。</p>
-<h4 id="相机坐标转图像坐标"><a href="#相机坐标转图像坐标" class="headerlink" title="相机坐标转图像坐标"></a>相机坐标转图像坐标</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cords_y_minus_z_x = np.concatenate([cords_x_y_z[<span class="number">1</span>, :], -cords_x_y_z[<span class="number">2</span>, :], cords_x_y_z[<span class="number">0</span>, :]])</span><br></pre></td></tr></table></figure>
-<p>这一句将相机坐标系下的坐标进行图像坐标轴的变换。</p>
-<p><img src="/images/Carla的坐标变换/1.png" alt="img"></p>
-<p><img src="C:\Users\Xue\Documents\Codings\myblog_hexo\source\images\Carla的坐标变换\1.png" alt="1"></p>
-<p>y变x，-z变y，x变z</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bbox = np.transpose(np.dot(camera_coordinate(camera), cords_y_minus_z_x))</span><br></pre></td></tr></table></figure>
-<p>使用相机内参矩阵将相机坐标系下的坐标变换为图像坐标系下的坐标。</p>
-<p>主函数最后返回8×3的图像坐标，第三维为1，前两维分别是图像(x,y)</p>
-<p>结束啦！</p>
-<hr>
-<p><strong>3月23晚21点更新</strong></p>
-<p>突然发现事情没有这么简单。</p>
-<p>生成数据集时已经对坐标系进行了变换，即按照上图所示使用的是图像坐标系下的三维坐标。</p>
-<p>因此在读取数据后，需要进行坐标变换，将KITTI格式的GT从<strong>图像坐标系</strong>变换到相机坐标系下</p>
-<blockquote>
-<p>做法就是:</p>
-<p>x = location[‘z’]</p>
-<p>y = location[‘x’]</p>
-<p>z = -location[‘y’]</p>
-</blockquote>
-<p>若没有进行坐标变换则进行坐标系矩阵乘法后结果直接没用（必然的）</p>
-<p>这个变换后[x,y,z,1]就是相机source坐标系下的点，需要得到target坐标系下的坐标[x’,y’,z’,1]</p>
-<p>有了前面的总结，可以容易的知道:</p>
-<blockquote>
-<p>[x’,y’,z’,1] = inv(target_matrix) · source_matrix · transpose([x,y,z,1])</p>
-</blockquote>
-<p>最后这么算结果正确。</p>
-<p>变换完的坐标系仍然是相机坐标系，还需要转换为图像坐标系与KITTI数据保持一致。</p>
-<p>值得注意的是，实验中保留了GT的小数点后四位，转换后坐标存在0.1m的误差，如果要转换精度高在制作数据集时保留更多的位数。</p>
+        <p>在python Opencv4.4 版本中，自定义了contours数组，希望使用contourArea()函数计算多边形面积，但是报错:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(-215:Assertion failed) npoints &gt;= 0 &amp;&amp; (depth == CV_32F ||depth ==CV_32S)</span><br></pre></td></tr></table></figure>
+<p>一开始以为仅仅是contours的格式不正确，使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.array(contour).reshape(-1,1,2)</span><br></pre></td></tr></table></figure>
+<p>还是报错。</p>
+<p>最终发现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.array(contour).reshape(-1,1,2).astype(np.int32)</span><br></pre></td></tr></table></figure>
+<p>就好了，竟然数据类型也需要确定为int，只能说这个报错好像没有指明问题所在…浪费不少时间</p>
 
     </article>
     <!-- license  -->
@@ -465,17 +417,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2021/04/20/Opencv-轮廓-contours的踩坑/" title="Opencv 轮廓 contours的踩坑">
-                    <div class="nextTitle">Opencv 轮廓 contours的踩坑</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2021/01/20/pytorch-tensor-的一些奇妙操作/" title="pytorch tensor 的一些奇妙操作">
-                    <div class="prevTitle">pytorch tensor 的一些奇妙操作</div>
+                <a href="/2021/03/22/Carla的坐标变换/" title="Carla的坐标变换">
+                    <div class="prevTitle">Carla的坐标变换</div>
                 </a>
             
         </li>
@@ -609,7 +556,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Carla的坐标变换"><span class="toc-number">1.</span> <span class="toc-text">Carla的坐标变换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相对坐标变换"><span class="toc-number">1.1.</span> <span class="toc-text">相对坐标变换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Transform的含义"><span class="toc-number">1.1.1.</span> <span class="toc-text">Transform的含义</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相机坐标转图像坐标"><span class="toc-number">1.2.</span> <span class="toc-text">相机坐标转图像坐标</span></a></li></ol></li></ol>
+        
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
