@@ -10,18 +10,18 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta name="author" content="Weipeng Xue">
     <meta name="renderer" content="webkit">
     <meta name="copyright" content="Weipeng Xue">
     
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
-    <meta name="description" content>
+    <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>ROS-动态参数配置使用的一系列问题 · Weipeng Studio</title>
     <style type="text/css">
     @font-face {
@@ -75,10 +75,10 @@
 
 </style>
 
-    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -187,10 +187,10 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/X.png">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="icon" href= "/assets/X.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
     <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
     <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
@@ -200,7 +200,7 @@
     
     <!-- 谷歌统计  -->
     
-</head>
+<meta name="generator" content="Hexo 6.1.0"></head>
 
     
         <body class="post-body">
@@ -214,14 +214,14 @@
     
     <div class="banner">
             <div class="blog-title">
-                <a href="/">Weipeng Studio.</a>
+                <a href="/" >Weipeng Studio.</a>
             </div>
             <div class="post-title">
                 <a href="#" class="post-name">ROS-动态参数配置使用的一系列问题</a>
             </div>
     </div>
     
-    <a class="home-link" href="/">Weipeng Studio.</a>
+    <a class="home-link" href=/>Weipeng Studio.</a>
 </header>
     <div class="wrapper">
         <div class="site-intro" style="
@@ -264,9 +264,9 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
-                    <div class="post-intro-tags">
+                    <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "notes">notes</a>
     
 </div>
                 
@@ -403,14 +403,18 @@ height:50vh;
     <article class="article-entry">
         <h1 id="ROS-动态参数配置Dynamic-Reconfigure-使用的一系列问题"><a href="#ROS-动态参数配置Dynamic-Reconfigure-使用的一系列问题" class="headerlink" title="ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题"></a>ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题</h1><p>动态参数配置在机器人中使用还是挺频繁的，避免了ros中参数服务器的来回更改并且需要不断监听的缺陷，<br>动态参数配置就是ROS中的一个Service，需要改变参数的节点就充当一个服务器Server，调用改变参数的<br>rqt_reconfigure就相当于是客户端Client，这样配置参数相当方便。但是我在使用的过程中实在是遇到了<br>相当多的问题，果真还是我太菜了。下面详细说一下我遇到的一些问题。</p>
 <hr>
-<h2 id="动态参数的基本使用"><a href="#动态参数的基本使用" class="headerlink" title="动态参数的基本使用"></a>动态参数的基本使用</h2><h3 id="在package-xml中配置依赖"><a href="#在package-xml中配置依赖" class="headerlink" title="在package.xml中配置依赖"></a>在package.xml中配置依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;build_depend&gt;dynamic_reconfigure&lt;/build_depend&gt;</span><br><span class="line">&lt;build_depend&gt;dynamic_reconfigure&lt;/build_depend&gt;</span><br><span class="line">&lt;exec_depend&gt;dynamic_reconfigure&lt;/exec_depend&gt;</span><br></pre></td></tr></table></figure>
-<p>###创建一个配置文件<br>这个配置文件里主要就是确定需要动态改变的参数还有改变的方式以及默认参数、参数范围等。在package内建立一个文件夹cfg。<br><code>$mkdir cfg</code><br><code>$torch (filename).cfg</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">PACKAGE = &quot;ros_cutball&quot;</span><br><span class="line"></span><br><span class="line">from dynamic_reconfigure.parameter_generator_catkin import *</span><br><span class="line"></span><br><span class="line">gen = ParameterGenerator()</span><br><span class="line"></span><br><span class="line">gen.add(&quot;H1&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 180)</span><br><span class="line">gen.add(&quot;S1&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line">gen.add(&quot;V1&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line">gen.add(&quot;H2&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 180)</span><br><span class="line">gen.add(&quot;S2&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line">gen.add(&quot;V2&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exit(gen.generate(PACKAGE, &quot;ros_cutball&quot;, &quot;hsv_&quot;))</span><br></pre></td></tr></table></figure></p>
-<p>我使用这个的原因是图像调整hsv的阈值用于颜色检测。我这里改成”hsv_”,最后就是 #include &lt;ros_cutball/hsv_Config.h&gt;<br>最后最好自己写个launch文件，把自己的参数yaml文件加入进去，方便调参。<br>这里一定要记得<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x (your_package)/cfg/(filename).cfg</span><br></pre></td></tr></table></figure></p>
+<h2 id="动态参数的基本使用"><a href="#动态参数的基本使用" class="headerlink" title="动态参数的基本使用"></a>动态参数的基本使用</h2><h3 id="在package-xml中配置依赖"><a href="#在package-xml中配置依赖" class="headerlink" title="在package.xml中配置依赖"></a>在package.xml中配置依赖</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;build_depend&gt;dynamic_reconfigure&lt;/build_depend&gt;</span><br><span class="line">&lt;build_depend&gt;dynamic_reconfigure&lt;/build_depend&gt;</span><br><span class="line">&lt;exec_depend&gt;dynamic_reconfigure&lt;/exec_depend&gt;</span><br></pre></td></tr></table></figure>
+<p>###创建一个配置文件<br>这个配置文件里主要就是确定需要动态改变的参数还有改变的方式以及默认参数、参数范围等。在package内建立一个文件夹cfg。<br><code>$mkdir cfg</code><br><code>$torch (filename).cfg</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">PACKAGE = &quot;ros_cutball&quot;</span><br><span class="line"></span><br><span class="line">from dynamic_reconfigure.parameter_generator_catkin import *</span><br><span class="line"></span><br><span class="line">gen = ParameterGenerator()</span><br><span class="line"></span><br><span class="line">gen.add(&quot;H1&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 180)</span><br><span class="line">gen.add(&quot;S1&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line">gen.add(&quot;V1&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line">gen.add(&quot;H2&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 180)</span><br><span class="line">gen.add(&quot;S2&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line">gen.add(&quot;V2&quot;,    int_t,    0, &quot;An Integer parameter&quot;, 0, 0, 255)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exit(gen.generate(PACKAGE, &quot;ros_cutball&quot;, &quot;hsv_&quot;))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>我使用这个的原因是图像调整hsv的阈值用于颜色检测。我这里改成”hsv_”,最后就是 #include &lt;ros_cutball&#x2F;hsv_Config.h&gt;<br>最后最好自己写个launch文件，把自己的参数yaml文件加入进去，方便调参。<br>这里一定要记得</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x (your_package)/cfg/(filename).cfg</span><br></pre></td></tr></table></figure>
 <p>将cfg文件设置可执行权限。</p>
-<h3 id="更改CmakeList-txt"><a href="#更改CmakeList-txt" class="headerlink" title="更改CmakeList.txt"></a>更改CmakeList.txt</h3><p>在find_package下加入<code>dynamic_reconfigure</code>，紧随着find_package，添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">generate_dynamic_reconfigure_options(</span><br><span class="line">  cfg/yellow.cfg</span><br><span class="line">  cfg/red.cfg</span><br><span class="line">  cfg/black.cfg</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h3 id="更改CmakeList-txt"><a href="#更改CmakeList-txt" class="headerlink" title="更改CmakeList.txt"></a>更改CmakeList.txt</h3><p>在find_package下加入<code>dynamic_reconfigure</code>，紧随着find_package，添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">generate_dynamic_reconfigure_options(</span><br><span class="line">  cfg/yellow.cfg</span><br><span class="line">  cfg/red.cfg</span><br><span class="line">  cfg/black.cfg</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>这个必须紧跟着，否则cmake会找不到文件中的配置文件然后报错。</p>
-<h3 id="cpp文件的编写"><a href="#cpp文件的编写" class="headerlink" title="cpp文件的编写"></a>cpp文件的编写</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;ros/ros.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;dynamic_reconfigure/server.h&gt;</span><br><span class="line">#include &lt;dynamic_tutorials/TutorialsConfig.h&gt;</span><br><span class="line"></span><br><span class="line">void callback(dynamic_tutorials::TutorialsConfig &amp;config, uint32_t level) &#123;</span><br><span class="line">  ROS_INFO(&quot;Reconfigure Request: %d %f %s %s %d&quot;, </span><br><span class="line">            config.int_param, config.double_param, </span><br><span class="line">            config.str_param.c_str(), </span><br><span class="line">            config.bool_param?&quot;True&quot;:&quot;False&quot;, </span><br><span class="line">            config.size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char **argv) &#123;</span><br><span class="line">  ros::init(argc, argv, &quot;dynamic_tutorials&quot;);</span><br><span class="line">  </span><br><span class="line"> //&lt;  &gt;中是自己的package_name::node_name</span><br><span class="line">  dynamic_reconfigure::Server&lt;dynamic_tutorials::TutorialsConfig&gt; server; </span><br><span class="line">  dynamic_reconfigure::Server&lt;dynamic_tutorials::TutorialsConfig&gt;::CallbackType f;</span><br><span class="line"></span><br><span class="line">  f = boost::bind(&amp;callback, _1, _2);</span><br><span class="line">  server.setCallback(f);</span><br><span class="line"></span><br><span class="line">  ROS_INFO(&quot;Spinning node&quot;);</span><br><span class="line">  ros::spin();</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码是写在主函数中的，我写在自定义的类中，所以f = boost::bind(&amp;callback, _1, <em>2);中的callback需要加上类名解析。<br>我的callback是直接修改类中的一个成员的:`nh</em>.getParam(“H1”,range_hsv[0]); `。<br>所以在callback中我直接使用nodehandle调取修改过的参数“H1”赋值给一个成员变量。<br>由于我们同时订阅与发布话题，所以主循环中使用ros::spinOnce()<br>还有一点，include中的dynamic_tutorials/TutorialsConfig.h，后面是在config文件中最后自己设置的名称。<br><strong>但是这样写可能会失败</strong><br>当编译后，运行节点，运行zed相机的launch文件，打开$rosrun rqt_reconfigure rqt_reconfigure<br>发现；里面没有我的节点的动态修改文件界面，查阅zed相机功能包的节点动态参数源代码的编写，将动态参数配置的代码改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//boost::shared_ptr&lt;dynamic_reconfigure::Server&lt;ros_cutball::hsv_Config&gt;&gt; mDynRecServer;</span><br><span class="line">    mDynRecServer = boost::make_shared&lt;dynamic_reconfigure::Server&lt;ros_cutball::hsv_Config&gt;&gt;();</span><br><span class="line">    dynamic_reconfigure::Server&lt;ros_cutball::hsv_Config&gt;::CallbackType f;</span><br><span class="line">    </span><br><span class="line">    f = boost::bind(&amp;Detect_Color::hsv_update,this, _1, _2);</span><br><span class="line">    mDynRecServer-&gt;setCallback(f);</span><br></pre></td></tr></table></figure></p>
+<h3 id="cpp文件的编写"><a href="#cpp文件的编写" class="headerlink" title="cpp文件的编写"></a>cpp文件的编写</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;ros/ros.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;dynamic_reconfigure/server.h&gt;</span><br><span class="line">#include &lt;dynamic_tutorials/TutorialsConfig.h&gt;</span><br><span class="line"></span><br><span class="line">void callback(dynamic_tutorials::TutorialsConfig &amp;config, uint32_t level) &#123;</span><br><span class="line">  ROS_INFO(&quot;Reconfigure Request: %d %f %s %s %d&quot;, </span><br><span class="line">            config.int_param, config.double_param, </span><br><span class="line">            config.str_param.c_str(), </span><br><span class="line">            config.bool_param?&quot;True&quot;:&quot;False&quot;, </span><br><span class="line">            config.size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char **argv) &#123;</span><br><span class="line">  ros::init(argc, argv, &quot;dynamic_tutorials&quot;);</span><br><span class="line">  </span><br><span class="line"> //&lt;  &gt;中是自己的package_name::node_name</span><br><span class="line">  dynamic_reconfigure::Server&lt;dynamic_tutorials::TutorialsConfig&gt; server; </span><br><span class="line">  dynamic_reconfigure::Server&lt;dynamic_tutorials::TutorialsConfig&gt;::CallbackType f;</span><br><span class="line"></span><br><span class="line">  f = boost::bind(&amp;callback, _1, _2);</span><br><span class="line">  server.setCallback(f);</span><br><span class="line"></span><br><span class="line">  ROS_INFO(&quot;Spinning node&quot;);</span><br><span class="line">  ros::spin();</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码是写在主函数中的，我写在自定义的类中，所以f &#x3D; boost::bind(&amp;callback, _1, _2);中的callback需要加上类名解析。<br>我的callback是直接修改类中的一个成员的:<code>nh_.getParam(&quot;H1&quot;,range_hsv[0]); </code>。<br>所以在callback中我直接使用nodehandle调取修改过的参数“H1”赋值给一个成员变量。<br>由于我们同时订阅与发布话题，所以主循环中使用ros::spinOnce()<br>还有一点，include中的dynamic_tutorials&#x2F;TutorialsConfig.h，后面是在config文件中最后自己设置的名称。<br><strong>但是这样写可能会失败</strong><br>当编译后，运行节点，运行zed相机的launch文件，打开$rosrun rqt_reconfigure rqt_reconfigure<br>发现；里面没有我的节点的动态修改文件界面，查阅zed相机功能包的节点动态参数源代码的编写，将动态参数配置的代码改为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//boost::shared_ptr&lt;dynamic_reconfigure::Server&lt;ros_cutball::hsv_Config&gt;&gt; mDynRecServer;</span><br><span class="line">    mDynRecServer = boost::make_shared&lt;dynamic_reconfigure::Server&lt;ros_cutball::hsv_Config&gt;&gt;();</span><br><span class="line">    dynamic_reconfigure::Server&lt;ros_cutball::hsv_Config&gt;::CallbackType f;</span><br><span class="line">    </span><br><span class="line">    f = boost::bind(&amp;Detect_Color::hsv_update,this, _1, _2);</span><br><span class="line">    mDynRecServer-&gt;setCallback(f);</span><br></pre></td></tr></table></figure>
 <p>然后就ok了。感觉应该是boost库的智能指针上操作的一些原因，目前不太了解，先留着问题。</p>
 <p><img src="/images/2019052500.png" alt="avatar"></p>
 <p>效果如上</p>
@@ -419,15 +423,17 @@ height:50vh;
 <hr>
 <h2 id="继续探索"><a href="#继续探索" class="headerlink" title="继续探索"></a>继续探索</h2><p>主要是cfg中设置了默认值的原因。由于我的图像部分代码是在无人机起飞前就要调整好图像的颜色阈值的，这样飞机上的机载RGB相机可以通过颜色识别来进行之后的一系列操作。但是由于设置了默认值的原因，通过我自己编写的launch文件每次启动节点颜色的阈值都是默认值，如果要修改默认值，必须重新编译整个package，这样反而大大降低效率，也不符合我使用ROS的初衷。所以进行了更多的探索。</p>
 <h3 id="想法一"><a href="#想法一" class="headerlink" title="想法一"></a>想法一</h3><p>通过在launch文件中更改参数服务器中的参数数值，以为会使默认值抵消。<br>前面说过，动态参数配置实际上是一个服务，我仅仅改变参数服务器的上的参数的之没有调用服务器的回调函数，然而我的使程序内阈值变化的代码是放在回调函数中的，所以，无论是手动改变参数还是launch文件启动时改变都无济于事，虽然参数服务器上的值变化了，但是程序内部的阈值没有。</p>
-<h3 id="想法二"><a href="#想法二" class="headerlink" title="想法二"></a>想法二</h3><p>然后去维基百科上查找文档，发现有通过命令行手动调用dynamic_reconfigure的方法修改参数并且调用回调函数，经过我的测试确实可以，于是将这个rosrun的调用写在了launch文件中，但是启动launch后还是无效。原因可能是launch文件内节点的启动顺序不一致造成的，可能我的节点在我配置参数后才启动，那么程序内的server启动后还是会使用默认值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun dynamic_reconfigure dynparam set /node parameter_name value</span><br></pre></td></tr></table></figure></p>
-<p>这个命令手动调用动态参数的回调函数。<br>多个参数可以这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun dynamic_reconfigure dynparam set wge100_camera &quot;&#123;&apos;camera_url&apos;:&apos;foo&apos;, &apos;brightness&apos;:58&#125;&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="想法二"><a href="#想法二" class="headerlink" title="想法二"></a>想法二</h3><p>然后去维基百科上查找文档，发现有通过命令行手动调用dynamic_reconfigure的方法修改参数并且调用回调函数，经过我的测试确实可以，于是将这个rosrun的调用写在了launch文件中，但是启动launch后还是无效。原因可能是launch文件内节点的启动顺序不一致造成的，可能我的节点在我配置参数后才启动，那么程序内的server启动后还是会使用默认值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun dynamic_reconfigure dynparam set /node parameter_name value</span><br></pre></td></tr></table></figure>
+<p>这个命令手动调用动态参数的回调函数。<br>多个参数可以这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun dynamic_reconfigure dynparam set wge100_camera &quot;&#123;&#x27;camera_url&#x27;:&#x27;foo&#x27;, &#x27;brightness&#x27;:58&#125;&quot; </span><br></pre></td></tr></table></figure>
 <p>后面是个yaml的字典。</p>
 <h3 id="想法三"><a href="#想法三" class="headerlink" title="想法三"></a>想法三</h3><p>继续查文档，看FAQ，里面提问我的需求的人很少，但是发现了有在C++程序内手动调用Client.Call的方法。如果在Server启动后就Call一下不久解决了吗，将前一次调好的阈值参数保存在一个文件中，然后在程序内加载就行了。我觉得这个方法应该可行，目前来不及测试，附上链接，待需要时查看。</p>
 <ul>
-<li><a href="https://answers.ros.org/question/12276/is-there-a-c-api-for-a-dynamic-reconfigure-client/" target="_blank" rel="noopener">https://answers.ros.org/question/12276/is-there-a-c-api-for-a-dynamic-reconfigure-client/</a></li>
-<li><a href="https://answers.ros.org/question/57498/notify-changes-to-dynamic_reconfigure/" target="_blank" rel="noopener">https://answers.ros.org/question/57498/notify-changes-to-dynamic_reconfigure/</a></li>
+<li><a target="_blank" rel="noopener" href="https://answers.ros.org/question/12276/is-there-a-c-api-for-a-dynamic-reconfigure-client/">https://answers.ros.org/question/12276/is-there-a-c-api-for-a-dynamic-reconfigure-client/</a></li>
+<li><a target="_blank" rel="noopener" href="https://answers.ros.org/question/57498/notify-changes-to-dynamic_reconfigure/">https://answers.ros.org/question/57498/notify-changes-to-dynamic_reconfigure/</a></li>
 </ul>
-<h3 id="想法四（采用）"><a href="#想法四（采用）" class="headerlink" title="想法四（采用）"></a>想法四（采用）</h3><p>将近看了四个小时，最后发现开发人员的一条回答。说dynamic_reconfigure在关闭后是将最后的参数保存下来的。<br><u><em>前提是没有关闭roscore</em></u>, 我觉得这个简直是一句话解决我所有问题。<br>经过测试，首先启动roscore，然后启动动态参数配置节点的launch文件，更改参数后，然后关闭launch文件，再次启动launch文件，发现的确参数保持上次关闭时候的参数。<a href="https://answers.ros.org/question/12830/dynamic-reconfigure-default-values-not-working/" target="_blank" rel="noopener">不懈查找的结果</a></p>
+<h3 id="想法四（采用）"><a href="#想法四（采用）" class="headerlink" title="想法四（采用）"></a>想法四（采用）</h3><p>将近看了四个小时，最后发现开发人员的一条回答。说dynamic_reconfigure在关闭后是将最后的参数保存下来的。<br><u><em>前提是没有关闭roscore</em></u>, 我觉得这个简直是一句话解决我所有问题。<br>经过测试，首先启动roscore，然后启动动态参数配置节点的launch文件，更改参数后，然后关闭launch文件，再次启动launch文件，发现的确参数保持上次关闭时候的参数。<a target="_blank" rel="noopener" href="https://answers.ros.org/question/12830/dynamic-reconfigure-default-values-not-working/">不懈查找的结果</a></p>
 <ul>
 <li>通过查阅FAQ与github的issue，他们在2013年的时候就添加了这个机制：动态参数服务建立时就会获取参数服务器上的需要动态更改的参数的信息，如果存在，则使用参数服务器上的值，否则使用默认的值。</li>
 </ul>
@@ -441,17 +447,12 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/09/07/Faster-RCNN 理解笔记/" title="Faster-RCNN 理解笔记">
+                <a href= "/2019/09/07/Faster-RCNN%20%E7%90%86%E8%A7%A3%E7%AC%94%E8%AE%B0/" title= "Faster-RCNN 理解笔记">
                     <div class="nextTitle">Faster-RCNN 理解笔记</div>
                 </a>
             
         </li>
         <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/05/22/hello-world/" title="Hello World">
-                    <div class="prevTitle">Hello World</div>
-                </a>
             
         </li>
     </ul>
@@ -496,21 +497,21 @@ height:50vh;
     
         
             
-                <a href="mailto:goodxue@gmial.com" class="iconfont-archer email" title="email"></a>
+                <a href="mailto:goodxue@gmial.com" class="iconfont-archer email" title=email ></a>
             
         
     
         
             
-                <a href="//github.com/goodxue" class="iconfont-archer github" target="_blank" title="github"></a>
+                <a href="//github.com/goodxue" class="iconfont-archer github" target="_blank" title=github></a>
             
         
     
         
             
-                <span class="iconfont-archer wechat" title="wechat">
+                <span class="iconfont-archer wechat" title=wechat>
                   
-                  <img class="profile-qr" src="/assets/wechatQR.png">
+                  <img class="profile-qr" src="/assets/wechatQR.png" />
                 </span>
             
         
@@ -584,7 +585,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ROS-动态参数配置Dynamic-Reconfigure-使用的一系列问题"><span class="toc-number">1.</span> <span class="toc-text">ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态参数的基本使用"><span class="toc-number">1.1.</span> <span class="toc-text">动态参数的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在package-xml中配置依赖"><span class="toc-number">1.1.1.</span> <span class="toc-text">在package.xml中配置依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更改CmakeList-txt"><span class="toc-number">1.1.2.</span> <span class="toc-text">更改CmakeList.txt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpp文件的编写"><span class="toc-number">1.1.3.</span> <span class="toc-text">cpp文件的编写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继续探索"><span class="toc-number">1.2.</span> <span class="toc-text">继续探索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#想法一"><span class="toc-number">1.2.1.</span> <span class="toc-text">想法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想法二"><span class="toc-number">1.2.2.</span> <span class="toc-text">想法二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想法三"><span class="toc-number">1.2.3.</span> <span class="toc-text">想法三</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想法四（采用）"><span class="toc-number">1.2.4.</span> <span class="toc-text">想法四（采用）</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ROS-%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AEDynamic-Reconfigure-%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">ROS 动态参数配置Dynamic Reconfigure 使用的一系列问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">动态参数的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8package-xml%E4%B8%AD%E9%85%8D%E7%BD%AE%E4%BE%9D%E8%B5%96"><span class="toc-number">1.1.1.</span> <span class="toc-text">在package.xml中配置依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9CmakeList-txt"><span class="toc-number">1.1.2.</span> <span class="toc-text">更改CmakeList.txt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpp%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99"><span class="toc-number">1.1.3.</span> <span class="toc-text">cpp文件的编写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E7%BB%AD%E6%8E%A2%E7%B4%A2"><span class="toc-number">1.2.</span> <span class="toc-text">继续探索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%B3%E6%B3%95%E4%B8%80"><span class="toc-number">1.2.1.</span> <span class="toc-text">想法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%B3%E6%B3%95%E4%BA%8C"><span class="toc-number">1.2.2.</span> <span class="toc-text">想法二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%B3%E6%B3%95%E4%B8%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">想法三</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%B3%E6%B3%95%E5%9B%9B%EF%BC%88%E9%87%87%E7%94%A8%EF%BC%89"><span class="toc-number">1.2.4.</span> <span class="toc-text">想法四（采用）</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -736,9 +737,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 13
+        Total : 14
         </div>
         <!-- search  -->
         
@@ -749,22 +757,36 @@ top:50vh;
     
     
     
+    <div class="archive-year"> 2022 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/17</span><a class="archive-post-title" href= "/2022/12/17/RTX4090%E9%85%8D%E7%BD%AEPytorch%E7%8E%AF%E5%A2%83/" >RTX4090 配置 Pytorch环境相关问题记录</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/20</span><a class="archive-post-title" href="/2021/04/20/Opencv-轮廓-contours的踩坑/">Opencv 轮廓 contours的踩坑</a>
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2021/04/20/Opencv-%E8%BD%AE%E5%BB%93-contours%E7%9A%84%E8%B8%A9%E5%9D%91/" >Opencv 轮廓 contours的踩坑</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/2021/03/22/Carla的坐标变换/">Carla的坐标变换</a>
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2021/03/22/Carla%E7%9A%84%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2/" >Carla的坐标变换</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href="/2021/01/20/pytorch-tensor-的一些奇妙操作/">pytorch tensor 的一些奇妙操作</a>
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2021/01/20/pytorch-tensor-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%A5%87%E5%A6%99%E6%93%8D%E4%BD%9C/" >pytorch tensor 的一些奇妙操作</a>
         </li>
     
     
@@ -778,27 +800,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/24</span><a class="archive-post-title" href="/2020/11/24/Nuscenes-数据集/">Nuscenes 数据集</a>
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2020/11/24/Nuscenes-%E6%95%B0%E6%8D%AE%E9%9B%86/" >Nuscenes 数据集</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/21</span><a class="archive-post-title" href="/2020/11/21/Linux-Shell-学习/">Linux Shell 学习</a>
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2020/11/21/Linux-Shell-%E5%AD%A6%E4%B9%A0/" >Linux Shell 学习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/21</span><a class="archive-post-title" href="/2020/11/21/Pixhawk-Ubuntu18-04下仿真环境配置/">Pixhawk Ubuntu18.04下仿真环境配置</a>
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2020/11/21/Pixhawk-Ubuntu18-04%E4%B8%8B%E4%BB%BF%E7%9C%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" >Pixhawk Ubuntu18.04下仿真环境配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/20</span><a class="archive-post-title" href="/2020/11/20/ubuntu-Clash-代理配置/">ubuntu Clash 代理配置</a>
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2020/11/20/ubuntu-Clash-%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" >ubuntu Clash 代理配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/13</span><a class="archive-post-title" href="/2020/11/13/YOLO-的损失函数/">YOLO 的损失函数</a>
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2020/11/13/YOLO-%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" >YOLO 的损失函数</a>
         </li>
     
     
@@ -812,30 +834,39 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href="/2019/10/04/flask-命令行运行报错：无法定位flask应用/">flask 命令行运行报错：无法定位flask应用</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2019/10/04/flask-%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8Dflask%E5%BA%94%E7%94%A8/" >flask 命令行运行报错：无法定位flask应用</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href="/2019/10/04/pytorch-faster-rcnn-代码阅读/">pytorch-faster-rcnn 代码阅读</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2019/10/04/pytorch-faster-rcnn-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/" >pytorch-faster-rcnn 代码阅读</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/07</span><a class="archive-post-title" href="/2019/09/07/Faster-RCNN 理解笔记/">Faster-RCNN 理解笔记</a>
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2019/09/07/Faster-RCNN%20%E7%90%86%E8%A7%A3%E7%AC%94%E8%AE%B0/" >Faster-RCNN 理解笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/25</span><a class="archive-post-title" href="/2019/05/25/ROS-动态参数配置使用的一系列问题/">ROS-动态参数配置使用的一系列问题</a>
+            <span class="archive-post-date">05/25</span><a class="archive-post-title" href= "/2019/05/25/ROS-%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98/" >ROS-动态参数配置使用的一系列问题</a>
         </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/22</span><a class="archive-post-title" href="/2019/05/22/hello-world/">Hello World</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2022/12/17/hello-world/" >Hello World</a>
         </li>
     
-    </ul></div>
+    </div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
@@ -845,10 +876,10 @@ top:50vh;
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br>
-    1、请确保node版本大于6.2<br>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
     3、在根目录_config.yml里添加配置：
     <pre style="color: #787878; font-size: 0.6rem;">
 jsonContent:
@@ -875,19 +906,19 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
+        <span class="sidebar-category-name" data-categories="carla"><span class="iconfont-archer">&#xe60a;</span>carla</span>
     
         <span class="sidebar-category-name" data-categories="DL"><span class="iconfont-archer">&#xe60a;</span>DL</span>
     
-        <span class="sidebar-category-name" data-categories="carla"><span class="iconfont-archer">&#xe60a;</span>carla</span>
+        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
     
         <span class="sidebar-category-name" data-categories="opencv"><span class="iconfont-archer">&#xe60a;</span>opencv</span>
     
         <span class="sidebar-category-name" data-categories="environment"><span class="iconfont-archer">&#xe60a;</span>environment</span>
     
-        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
-    
         <span class="sidebar-category-name" data-categories="ROS"><span class="iconfont-archer">&#xe60a;</span>ROS</span>
+    
+        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

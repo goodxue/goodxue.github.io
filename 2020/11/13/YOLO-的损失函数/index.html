@@ -10,18 +10,18 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta name="author" content="Weipeng Xue">
     <meta name="renderer" content="webkit">
     <meta name="copyright" content="Weipeng Xue">
     
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
-    <meta name="description" content>
+    <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>YOLO 的损失函数 · Weipeng Studio</title>
     <style type="text/css">
     @font-face {
@@ -75,10 +75,10 @@
 
 </style>
 
-    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -187,10 +187,10 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/X.png">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="icon" href= "/assets/X.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
     <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
     <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
@@ -200,7 +200,7 @@
     
     <!-- 谷歌统计  -->
     
-</head>
+<meta name="generator" content="Hexo 6.1.0"></head>
 
     
         <body class="post-body">
@@ -214,14 +214,14 @@
     
     <div class="banner">
             <div class="blog-title">
-                <a href="/">Weipeng Studio.</a>
+                <a href="/" >Weipeng Studio.</a>
             </div>
             <div class="post-title">
                 <a href="#" class="post-name">YOLO 的损失函数</a>
             </div>
     </div>
     
-    <a class="home-link" href="/">Weipeng Studio.</a>
+    <a class="home-link" href=/>Weipeng Studio.</a>
 </header>
     <div class="wrapper">
         <div class="site-intro" style="
@@ -264,15 +264,15 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
-                    <div class="post-intro-tags">
+                    <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "notes">notes</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">399</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">400</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,15 +401,15 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="需要理解下图坐标、置信度和分类参数意义"><a href="#需要理解下图坐标、置信度和分类参数意义" class="headerlink" title="需要理解下图坐标、置信度和分类参数意义"></a>需要理解下图坐标、置信度和分类参数意义</h3><p><img src="/images/YOLO-的损失函数/yolo.png" alt="img"></p>
+        <h3 id="需要理解下图坐标、置信度和分类参数意义"><a href="#需要理解下图坐标、置信度和分类参数意义" class="headerlink" title="需要理解下图坐标、置信度和分类参数意义"></a>需要理解下图坐标、置信度和分类参数意义</h3><p><img src="/images/YOLO-%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/yolo.png" alt="img"></p>
 <p>网络最末端的卷积层输出的15×15大小的特征图，每一个像素的每一个通道都代表了一个输出指标。</p>
-<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p><img src="/images/YOLO-的损失函数/loss.png" alt="img"></p>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p><img src="/images/YOLO-%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/loss.png" alt="img"></p>
 <p>损失函数分为三部分，分别是BBox误差损失、IOU误差损失和类概率损失，重点需要理解IOU损失。</p>
 <p>注意求和的范围是每一个最终7乘7或15乘15的格子上的所有anchor</p>
 <h4 id="BBox损失"><a href="#BBox损失" class="headerlink" title="BBox损失"></a>BBox损失</h4><p>带有λcoord的部分，坐标位置采用均方误差，宽高采用开根号后的均方误差。</p>
 <p>前面的1obj表示该单元格是否负责预测目标，是的话为1，否为0.</p>
 <p>原因是由于作者认为小的BBOX偏差大的话带来的精度影响大于同等大小偏差下的大的BBOX的偏差，因此开根号中和这种影响。</p>
-<h4 id="IOU（置信度）损失"><a href="#IOU（置信度）损失" class="headerlink" title="IOU（置信度）损失"></a>IOU（置信度）损失</h4><p>带有Ci的损失项，<em>C<strong>i</strong>j</em>=<em>Pr</em>(Object)∗IOU，表示该anchor的置信度</p>
+<h4 id="IOU（置信度）损失"><a href="#IOU（置信度）损失" class="headerlink" title="IOU（置信度）损失"></a>IOU（置信度）损失</h4><p>带有Ci的损失项，<em>C<strong>i</strong>j</em>&#x3D;<em>Pr</em>(Object)∗IOU，表示该anchor的置信度</p>
 <ol>
 <li><p>对于负责预测的格子，计算其预测与GT的IOU损失</p>
 </li>
@@ -426,7 +426,7 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2020/11/20/ubuntu-Clash-代理配置/" title="ubuntu Clash 代理配置">
+                <a href= "/2020/11/20/ubuntu-Clash-%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" title= "ubuntu Clash 代理配置">
                     <div class="nextTitle">ubuntu Clash 代理配置</div>
                 </a>
             
@@ -434,7 +434,7 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/10/04/flask-命令行运行报错：无法定位flask应用/" title="flask 命令行运行报错：无法定位flask应用">
+                <a href= "/2019/10/04/flask-%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8Dflask%E5%BA%94%E7%94%A8/" title= "flask 命令行运行报错：无法定位flask应用">
                     <div class="prevTitle">flask 命令行运行报错：无法定位flask应用</div>
                 </a>
             
@@ -481,21 +481,21 @@ height:50vh;
     
         
             
-                <a href="mailto:goodxue@gmial.com" class="iconfont-archer email" title="email"></a>
+                <a href="mailto:goodxue@gmial.com" class="iconfont-archer email" title=email ></a>
             
         
     
         
             
-                <a href="//github.com/goodxue" class="iconfont-archer github" target="_blank" title="github"></a>
+                <a href="//github.com/goodxue" class="iconfont-archer github" target="_blank" title=github></a>
             
         
     
         
             
-                <span class="iconfont-archer wechat" title="wechat">
+                <span class="iconfont-archer wechat" title=wechat>
                   
-                  <img class="profile-qr" src="/assets/wechatQR.png">
+                  <img class="profile-qr" src="/assets/wechatQR.png" />
                 </span>
             
         
@@ -569,7 +569,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#需要理解下图坐标、置信度和分类参数意义"><span class="toc-number">1.</span> <span class="toc-text">需要理解下图坐标、置信度和分类参数意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#损失函数"><span class="toc-number">2.</span> <span class="toc-text">损失函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BBox损失"><span class="toc-number">2.1.</span> <span class="toc-text">BBox损失</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IOU（置信度）损失"><span class="toc-number">2.2.</span> <span class="toc-text">IOU（置信度）损失</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分类损失"><span class="toc-number">2.3.</span> <span class="toc-text">分类损失</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E7%90%86%E8%A7%A3%E4%B8%8B%E5%9B%BE%E5%9D%90%E6%A0%87%E3%80%81%E7%BD%AE%E4%BF%A1%E5%BA%A6%E5%92%8C%E5%88%86%E7%B1%BB%E5%8F%82%E6%95%B0%E6%84%8F%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">需要理解下图坐标、置信度和分类参数意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">损失函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BBox%E6%8D%9F%E5%A4%B1"><span class="toc-number">2.1.</span> <span class="toc-text">BBox损失</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IOU%EF%BC%88%E7%BD%AE%E4%BF%A1%E5%BA%A6%EF%BC%89%E6%8D%9F%E5%A4%B1"><span class="toc-number">2.2.</span> <span class="toc-text">IOU（置信度）损失</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E6%8D%9F%E5%A4%B1"><span class="toc-number">2.3.</span> <span class="toc-text">分类损失</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -721,9 +721,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 13
+        Total : 14
         </div>
         <!-- search  -->
         
@@ -734,22 +741,36 @@ top:50vh;
     
     
     
+    <div class="archive-year"> 2022 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/17</span><a class="archive-post-title" href= "/2022/12/17/RTX4090%E9%85%8D%E7%BD%AEPytorch%E7%8E%AF%E5%A2%83/" >RTX4090 配置 Pytorch环境相关问题记录</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/20</span><a class="archive-post-title" href="/2021/04/20/Opencv-轮廓-contours的踩坑/">Opencv 轮廓 contours的踩坑</a>
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2021/04/20/Opencv-%E8%BD%AE%E5%BB%93-contours%E7%9A%84%E8%B8%A9%E5%9D%91/" >Opencv 轮廓 contours的踩坑</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/2021/03/22/Carla的坐标变换/">Carla的坐标变换</a>
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2021/03/22/Carla%E7%9A%84%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2/" >Carla的坐标变换</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href="/2021/01/20/pytorch-tensor-的一些奇妙操作/">pytorch tensor 的一些奇妙操作</a>
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2021/01/20/pytorch-tensor-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%A5%87%E5%A6%99%E6%93%8D%E4%BD%9C/" >pytorch tensor 的一些奇妙操作</a>
         </li>
     
     
@@ -763,27 +784,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/24</span><a class="archive-post-title" href="/2020/11/24/Nuscenes-数据集/">Nuscenes 数据集</a>
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2020/11/24/Nuscenes-%E6%95%B0%E6%8D%AE%E9%9B%86/" >Nuscenes 数据集</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/21</span><a class="archive-post-title" href="/2020/11/21/Linux-Shell-学习/">Linux Shell 学习</a>
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2020/11/21/Linux-Shell-%E5%AD%A6%E4%B9%A0/" >Linux Shell 学习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/21</span><a class="archive-post-title" href="/2020/11/21/Pixhawk-Ubuntu18-04下仿真环境配置/">Pixhawk Ubuntu18.04下仿真环境配置</a>
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2020/11/21/Pixhawk-Ubuntu18-04%E4%B8%8B%E4%BB%BF%E7%9C%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" >Pixhawk Ubuntu18.04下仿真环境配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/20</span><a class="archive-post-title" href="/2020/11/20/ubuntu-Clash-代理配置/">ubuntu Clash 代理配置</a>
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2020/11/20/ubuntu-Clash-%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" >ubuntu Clash 代理配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/13</span><a class="archive-post-title" href="/2020/11/13/YOLO-的损失函数/">YOLO 的损失函数</a>
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2020/11/13/YOLO-%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" >YOLO 的损失函数</a>
         </li>
     
     
@@ -797,30 +818,39 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href="/2019/10/04/flask-命令行运行报错：无法定位flask应用/">flask 命令行运行报错：无法定位flask应用</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2019/10/04/flask-%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8Dflask%E5%BA%94%E7%94%A8/" >flask 命令行运行报错：无法定位flask应用</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href="/2019/10/04/pytorch-faster-rcnn-代码阅读/">pytorch-faster-rcnn 代码阅读</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2019/10/04/pytorch-faster-rcnn-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/" >pytorch-faster-rcnn 代码阅读</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/07</span><a class="archive-post-title" href="/2019/09/07/Faster-RCNN 理解笔记/">Faster-RCNN 理解笔记</a>
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2019/09/07/Faster-RCNN%20%E7%90%86%E8%A7%A3%E7%AC%94%E8%AE%B0/" >Faster-RCNN 理解笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/25</span><a class="archive-post-title" href="/2019/05/25/ROS-动态参数配置使用的一系列问题/">ROS-动态参数配置使用的一系列问题</a>
+            <span class="archive-post-date">05/25</span><a class="archive-post-title" href= "/2019/05/25/ROS-%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98/" >ROS-动态参数配置使用的一系列问题</a>
         </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/22</span><a class="archive-post-title" href="/2019/05/22/hello-world/">Hello World</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2022/12/17/hello-world/" >Hello World</a>
         </li>
     
-    </ul></div>
+    </div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
@@ -830,10 +860,10 @@ top:50vh;
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br>
-    1、请确保node版本大于6.2<br>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
     3、在根目录_config.yml里添加配置：
     <pre style="color: #787878; font-size: 0.6rem;">
 jsonContent:
@@ -860,19 +890,19 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
+        <span class="sidebar-category-name" data-categories="carla"><span class="iconfont-archer">&#xe60a;</span>carla</span>
     
         <span class="sidebar-category-name" data-categories="DL"><span class="iconfont-archer">&#xe60a;</span>DL</span>
     
-        <span class="sidebar-category-name" data-categories="carla"><span class="iconfont-archer">&#xe60a;</span>carla</span>
+        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
     
         <span class="sidebar-category-name" data-categories="opencv"><span class="iconfont-archer">&#xe60a;</span>opencv</span>
     
         <span class="sidebar-category-name" data-categories="environment"><span class="iconfont-archer">&#xe60a;</span>environment</span>
     
-        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
-    
         <span class="sidebar-category-name" data-categories="ROS"><span class="iconfont-archer">&#xe60a;</span>ROS</span>
+    
+        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

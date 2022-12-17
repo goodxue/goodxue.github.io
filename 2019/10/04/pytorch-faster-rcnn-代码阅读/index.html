@@ -10,18 +10,18 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta name="author" content="Weipeng Xue">
     <meta name="renderer" content="webkit">
     <meta name="copyright" content="Weipeng Xue">
     
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
-    <meta name="description" content>
+    <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>pytorch-faster-rcnn 代码阅读 · Weipeng Studio</title>
     <style type="text/css">
     @font-face {
@@ -75,10 +75,10 @@
 
 </style>
 
-    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -187,10 +187,10 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/X.png">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="icon" href= "/assets/X.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
     <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
     <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
@@ -200,7 +200,7 @@
     
     <!-- 谷歌统计  -->
     
-</head>
+<meta name="generator" content="Hexo 6.1.0"></head>
 
     
         <body class="post-body">
@@ -214,14 +214,14 @@
     
     <div class="banner">
             <div class="blog-title">
-                <a href="/">Weipeng Studio.</a>
+                <a href="/" >Weipeng Studio.</a>
             </div>
             <div class="post-title">
                 <a href="#" class="post-name">pytorch-faster-rcnn 代码阅读</a>
             </div>
     </div>
     
-    <a class="home-link" href="/">Weipeng Studio.</a>
+    <a class="home-link" href=/>Weipeng Studio.</a>
 </header>
     <div class="wrapper">
         <div class="site-intro" style="
@@ -264,9 +264,9 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
-                    <div class="post-intro-tags">
+                    <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "notes">notes</a>
     
 </div>
                 
@@ -401,7 +401,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>代码仓库来自：<a href="https://github.com/ruotianluo/pytorch-faster-rcnn" target="_blank" rel="noopener">https://github.com/ruotianluo/pytorch-faster-rcnn</a></p>
+        <p>代码仓库来自：<a target="_blank" rel="noopener" href="https://github.com/ruotianluo/pytorch-faster-rcnn">https://github.com/ruotianluo/pytorch-faster-rcnn</a></p>
 <p>首先代码的结构为</p>
 <p>本次重点记录一下最近看的基本网络结构，也就是加粗的部分</p>
 <blockquote>
@@ -412,7 +412,7 @@ height:50vh;
 <p>roi_align</p>
 <p>roi_pooling</p>
 <p>预生成anchor的组件</p>
-<p><strong>proposal_layer </strong></p>
+<p>**proposal_layer **</p>
 <p><strong>proposal_target_layer</strong></p>
 <p><strong>anchor_target_layer</strong></p>
 </blockquote>
@@ -431,29 +431,32 @@ height:50vh;
 <p>tools</p>
 </blockquote>
 </blockquote>
-<p><img src="/images/Faster-RCNN-理解笔记/network.png" alt="img"></p>
-<h3 id="network-的基本层次结构"><a href="#network-的基本层次结构" class="headerlink" title="network 的基本层次结构"></a>network 的基本层次结构</h3><h4 id="init"><a href="#init" class="headerlink" title="init__():"></a>init__():</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Network</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    nn.Module.__init__(self)</span><br><span class="line">    self._predictions = &#123;&#125;</span><br><span class="line">    self._losses = &#123;&#125;</span><br><span class="line">    self._anchor_targets = &#123;&#125;</span><br><span class="line">    self._proposal_targets = &#123;&#125;</span><br><span class="line">    self._layers = &#123;&#125;</span><br><span class="line">    self._gt_image = <span class="literal">None</span></span><br><span class="line">    self._act_summaries = &#123;&#125;</span><br><span class="line">    self._score_summaries = &#123;&#125;</span><br><span class="line">    self._event_summaries = &#123;&#125;</span><br><span class="line">    self._image_gt_summaries = &#123;&#125;</span><br><span class="line">    self._variables_to_fix = &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/Faster-RCNN-%E7%90%86%E8%A7%A3%E7%AC%94%E8%AE%B0/network.png" alt="img"></p>
+<h3 id="network-的基本层次结构"><a href="#network-的基本层次结构" class="headerlink" title="network 的基本层次结构"></a>network 的基本层次结构</h3><h4 id="init"><a href="#init" class="headerlink" title="init__():"></a>init__():</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Network</span>(nn.Module):</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">    nn.Module.__init__(self)</span><br><span class="line">    self._predictions = &#123;&#125;</span><br><span class="line">    self._losses = &#123;&#125;</span><br><span class="line">    self._anchor_targets = &#123;&#125;</span><br><span class="line">    self._proposal_targets = &#123;&#125;</span><br><span class="line">    self._layers = &#123;&#125;</span><br><span class="line">    self._gt_image = <span class="literal">None</span></span><br><span class="line">    self._act_summaries = &#123;&#125;</span><br><span class="line">    self._score_summaries = &#123;&#125;</span><br><span class="line">    self._event_summaries = &#123;&#125;</span><br><span class="line">    self._image_gt_summaries = &#123;&#125;</span><br><span class="line">    self._variables_to_fix = &#123;&#125;</span><br></pre></td></tr></table></figure>
+
 <p>首先在骨架网络上，初始化时定义了一系列的字典，用来保存后续的一系列模型参数。等到后续网络继承这个基本结构后再给一些数据赋值，这个问题要明确。</p>
-<h4 id="forward"><a href="#forward" class="headerlink" title="forward():"></a>forward():</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, image, im_info, gt_boxes=None, mode=<span class="string">'TRAIN'</span>)</span>:</span></span><br><span class="line">  self._image_gt_summaries[<span class="string">'image'</span>] = image</span><br><span class="line">  self._image_gt_summaries[<span class="string">'gt_boxes'</span>] = gt_boxes</span><br><span class="line">  self._image_gt_summaries[<span class="string">'im_info'</span>] = im_info</span><br><span class="line"></span><br><span class="line">  self._image = Variable(torch.from_numpy(image.transpose([<span class="number">0</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>])).cuda(), volatile=mode == <span class="string">'TEST'</span>)</span><br><span class="line">  self._im_info = im_info <span class="comment"># No need to change; actually it can be an list</span></span><br><span class="line">  self._gt_boxes = Variable(torch.from_numpy(gt_boxes).cuda()) <span class="keyword">if</span> gt_boxes <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  self._mode = mode</span><br><span class="line"></span><br><span class="line">  rois, cls_prob, bbox_pred = self._predict()</span><br><span class="line">  <span class="comment"># 在下面讲，保存RPN层的输出</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> mode == <span class="string">'TEST'</span>:</span><br><span class="line">    stds = bbox_pred.data.new(cfg.TRAIN.BBOX_NORMALIZE_STDS).repeat(self._num_classes).unsqueeze(<span class="number">0</span>).expand_as(bbox_pred)</span><br><span class="line">    means = bbox_pred.data.new(cfg.TRAIN.BBOX_NORMALIZE_MEANS).repeat(self._num_classes).unsqueeze(<span class="number">0</span>).expand_as(bbox_pred)</span><br><span class="line">    self._predictions[<span class="string">"bbox_pred"</span>] = bbox_pred.mul(Variable(stds)).add(Variable(means))</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    self._add_losses() <span class="comment"># compute losses</span></span><br></pre></td></tr></table></figure>
+<h4 id="forward"><a href="#forward" class="headerlink" title="forward():"></a>forward():</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, image, im_info, gt_boxes=<span class="literal">None</span>, mode=<span class="string">&#x27;TRAIN&#x27;</span></span>):</span><br><span class="line">  self._image_gt_summaries[<span class="string">&#x27;image&#x27;</span>] = image</span><br><span class="line">  self._image_gt_summaries[<span class="string">&#x27;gt_boxes&#x27;</span>] = gt_boxes</span><br><span class="line">  self._image_gt_summaries[<span class="string">&#x27;im_info&#x27;</span>] = im_info</span><br><span class="line"></span><br><span class="line">  self._image = Variable(torch.from_numpy(image.transpose([<span class="number">0</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>])).cuda(), volatile=mode == <span class="string">&#x27;TEST&#x27;</span>)</span><br><span class="line">  self._im_info = im_info <span class="comment"># No need to change; actually it can be an list</span></span><br><span class="line">  self._gt_boxes = Variable(torch.from_numpy(gt_boxes).cuda()) <span class="keyword">if</span> gt_boxes <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  self._mode = mode</span><br><span class="line"></span><br><span class="line">  rois, cls_prob, bbox_pred = self._predict()</span><br><span class="line">  <span class="comment"># 在下面讲，保存RPN层的输出</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> mode == <span class="string">&#x27;TEST&#x27;</span>:</span><br><span class="line">    stds = bbox_pred.data.new(cfg.TRAIN.BBOX_NORMALIZE_STDS).repeat(self._num_classes).unsqueeze(<span class="number">0</span>).expand_as(bbox_pred)</span><br><span class="line">    means = bbox_pred.data.new(cfg.TRAIN.BBOX_NORMALIZE_MEANS).repeat(self._num_classes).unsqueeze(<span class="number">0</span>).expand_as(bbox_pred)</span><br><span class="line">    self._predictions[<span class="string">&quot;bbox_pred&quot;</span>] = bbox_pred.mul(Variable(stds)).add(Variable(means))</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    self._add_losses() <span class="comment"># compute losses</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>再看传播函数，传入图片，标签，真值框等，然后进行保存。</p>
-<h4 id="再来看self-predict-："><a href="#再来看self-predict-：" class="headerlink" title="再来看self._predict()："></a>再来看self._predict()：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">_predict</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># This is just _build_network in tf-faster-rcnn</span></span><br><span class="line">    torch.backends.cudnn.benchmark = <span class="literal">False</span></span><br><span class="line">    net_conv = self._image_to_head()</span><br><span class="line">    <span class="comment"># 注意这个时候还没有feature map的输入，这个函数需要等到后续模型继承后再重定义</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># build the anchors for the image</span></span><br><span class="line">    self._anchor_component(net_conv.size(<span class="number">2</span>), net_conv.size(<span class="number">3</span>))</span><br><span class="line">    <span class="comment"># 使用generate_anchor 来生成基本的anchor框，具体细节见前面的faster rcnn理解</span></span><br><span class="line"></span><br><span class="line">    rois = self._region_proposal(net_conv)</span><br><span class="line">    <span class="comment">#这个RPN层是此次理解的重点，放在后面详细说明，我们首先理解网络的整体结构先，这里只需要知道输出是一些列的roi框</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> cfg.POOLING_MODE == <span class="string">'crop'</span>:</span><br><span class="line">      pool5 = self._crop_pool_layer(net_conv, rois)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      pool5 = self._roi_pool_layer(net_conv, rois)</span><br><span class="line">    <span class="comment"># 进行roi_pooling，生成几个维度固定的tensor</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> self._mode == <span class="string">'TRAIN'</span>:</span><br><span class="line">      torch.backends.cudnn.benchmark = <span class="literal">True</span> <span class="comment"># benchmark because now the input size are fixed</span></span><br><span class="line">    fc7 = self._head_to_tail(pool5)</span><br><span class="line">    <span class="comment"># 因为要做分类，所以做全连接</span></span><br><span class="line"></span><br><span class="line">    cls_prob, bbox_pred = self._region_classification(fc7)</span><br><span class="line"><span class="comment"># 再次进行分类和回归，不过这次分类是全部分类（之前是前景和后景的二分类）和第二次精确bbox回归</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> self._predictions.keys():</span><br><span class="line">      self._score_summaries[k] = self._predictions[k]</span><br><span class="line">    <span class="comment"># 将RPN层的一些参数保存</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rois, cls_prob, bbox_pred</span><br><span class="line"><span class="comment"># 返回roi，roi的类别和精确的bbox</span></span><br></pre></td></tr></table></figure>
+<h4 id="再来看self-predict-："><a href="#再来看self-predict-：" class="headerlink" title="再来看self._predict()："></a>再来看self._predict()：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">def</span> <span class="title function_">_predict</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="comment"># This is just _build_network in tf-faster-rcnn</span></span><br><span class="line">    torch.backends.cudnn.benchmark = <span class="literal">False</span></span><br><span class="line">    net_conv = self._image_to_head()</span><br><span class="line">    <span class="comment"># 注意这个时候还没有feature map的输入，这个函数需要等到后续模型继承后再重定义</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># build the anchors for the image</span></span><br><span class="line">    self._anchor_component(net_conv.size(<span class="number">2</span>), net_conv.size(<span class="number">3</span>))</span><br><span class="line">    <span class="comment"># 使用generate_anchor 来生成基本的anchor框，具体细节见前面的faster rcnn理解</span></span><br><span class="line"></span><br><span class="line">    rois = self._region_proposal(net_conv)</span><br><span class="line">    <span class="comment">#这个RPN层是此次理解的重点，放在后面详细说明，我们首先理解网络的整体结构先，这里只需要知道输出是一些列的roi框</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> cfg.POOLING_MODE == <span class="string">&#x27;crop&#x27;</span>:</span><br><span class="line">      pool5 = self._crop_pool_layer(net_conv, rois)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      pool5 = self._roi_pool_layer(net_conv, rois)</span><br><span class="line">    <span class="comment"># 进行roi_pooling，生成几个维度固定的tensor</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> self._mode == <span class="string">&#x27;TRAIN&#x27;</span>:</span><br><span class="line">      torch.backends.cudnn.benchmark = <span class="literal">True</span> <span class="comment"># benchmark because now the input size are fixed</span></span><br><span class="line">    fc7 = self._head_to_tail(pool5)</span><br><span class="line">    <span class="comment"># 因为要做分类，所以做全连接</span></span><br><span class="line"></span><br><span class="line">    cls_prob, bbox_pred = self._region_classification(fc7)</span><br><span class="line"><span class="comment"># 再次进行分类和回归，不过这次分类是全部分类（之前是前景和后景的二分类）和第二次精确bbox回归</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> self._predictions.keys():</span><br><span class="line">      self._score_summaries[k] = self._predictions[k]</span><br><span class="line">    <span class="comment"># 将RPN层的一些参数保存</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rois, cls_prob, bbox_pred</span><br><span class="line"><span class="comment"># 返回roi，roi的类别和精确的bbox</span></span><br></pre></td></tr></table></figure>
+
 <p>_predict这个函数已经将frcnn的全部组件结合在了一起，所有的模块都在这里进行了整合，我们首先对整个网络做了一个全方位感性的认识，后面再着重理解各个模块的实现细节。</p>
-<h3 id="RPN层的实现"><a href="#RPN层的实现" class="headerlink" title="RPN层的实现"></a>RPN层的实现</h3><p><img src="/images/pytorch-faster-rcnn-代码阅读/1.png" alt="img"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">_region_proposal</span><span class="params">(self, net_conv)</span>:</span></span><br><span class="line">   rpn = F.relu(self.rpn_net(net_conv))</span><br><span class="line">   <span class="comment"># 这个rpn_net里，首先对特征图3x3的卷积，然后分两路走，如上面图片所示</span></span><br><span class="line">   <span class="comment"># 上面那条路，rpn_cls_score_net，做个1x1卷积，将维度变为 60*40*9*2 </span></span><br><span class="line">   <span class="comment"># 逐像素对其9个Anchor box进行二分类</span></span><br><span class="line">   <span class="comment"># 下面那条路，rpn_bbox_pred_net，做1x1卷积维度变为 60*40*9*4</span></span><br><span class="line">   <span class="comment"># 逐像素得到其9个Anchor box四个坐标信息（其实是偏移量，后面介绍）</span></span><br><span class="line">   self._act_summaries[<span class="string">'rpn'</span>] = rpn</span><br><span class="line"></span><br><span class="line">   rpn_cls_score = self.rpn_cls_score_net(rpn) <span class="comment"># batch * (num_anchors * 2) * h * w</span></span><br><span class="line">   </span><br><span class="line"><span class="comment"># 这些代码主要做一些维度变换，满足运算条件</span></span><br><span class="line">   </span><br><span class="line">   <span class="comment"># change it so that the score has 2 as its channel size</span></span><br><span class="line">   rpn_cls_score_reshape = rpn_cls_score.view(<span class="number">1</span>, <span class="number">2</span>, <span class="number">-1</span>, rpn_cls_score.size()[<span class="number">-1</span>]) <span class="comment"># batch * 2 * (num_anchors*h) * w</span></span><br><span class="line">   rpn_cls_prob_reshape = F.softmax(rpn_cls_score_reshape, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">   <span class="comment"># Move channel to the last dimenstion, to fit the input of python functions</span></span><br><span class="line">   rpn_cls_prob = rpn_cls_prob_reshape.view_as(rpn_cls_score).permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>) <span class="comment"># batch * h * w * (num_anchors * 2)</span></span><br><span class="line">   rpn_cls_score = rpn_cls_score.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>) <span class="comment"># batch * h * w * (num_anchors * 2)</span></span><br><span class="line">   rpn_cls_score_reshape = rpn_cls_score_reshape.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>).contiguous()  <span class="comment"># batch * (num_anchors*h) * w * 2</span></span><br><span class="line"></span><br><span class="line">   rpn_cls_pred = torch.max(rpn_cls_score_reshape.view(<span class="number">-1</span>, <span class="number">2</span>), <span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">   rpn_bbox_pred = self.rpn_bbox_pred_net(rpn)</span><br><span class="line">   rpn_bbox_pred = rpn_bbox_pred.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>).contiguous()  <span class="comment"># batch * h * w * (num_anchors*4)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在这里进行RPN层的预测</span></span><br><span class="line">   <span class="keyword">if</span> self._mode == <span class="string">'TRAIN'</span>:</span><br><span class="line">     <span class="comment"># 预测出roi和roi的得分</span></span><br><span class="line">     rois, roi_scores = self._proposal_layer(rpn_cls_prob, rpn_bbox_pred) <span class="comment"># rois, roi_scores are varible</span></span><br><span class="line">     rpn_labels = self._anchor_target_layer(rpn_cls_score)</span><br><span class="line">     rois, _ = self._proposal_target_layer(rois, roi_scores)</span><br><span class="line">   <span class="keyword">else</span>:</span><br><span class="line">     <span class="keyword">if</span> cfg.TEST.MODE == <span class="string">'nms'</span>:</span><br><span class="line">       rois, _ = self._proposal_layer(rpn_cls_prob, rpn_bbox_pred)</span><br><span class="line">     <span class="keyword">elif</span> cfg.TEST.MODE == <span class="string">'top'</span>:</span><br><span class="line">       rois, _ = self._proposal_top_layer(rpn_cls_prob, rpn_bbox_pred)</span><br><span class="line">     <span class="keyword">else</span>:</span><br><span class="line">       <span class="keyword">raise</span> NotImplementedError</span><br></pre></td></tr></table></figure>
+<h3 id="RPN层的实现"><a href="#RPN层的实现" class="headerlink" title="RPN层的实现"></a>RPN层的实现</h3><p><img src="/images/pytorch-faster-rcnn-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/1.png" alt="img"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">def</span> <span class="title function_">_region_proposal</span>(<span class="params">self, net_conv</span>):</span><br><span class="line">   rpn = F.relu(self.rpn_net(net_conv))</span><br><span class="line">   <span class="comment"># 这个rpn_net里，首先对特征图3x3的卷积，然后分两路走，如上面图片所示</span></span><br><span class="line">   <span class="comment"># 上面那条路，rpn_cls_score_net，做个1x1卷积，将维度变为 60*40*9*2 </span></span><br><span class="line">   <span class="comment"># 逐像素对其9个Anchor box进行二分类</span></span><br><span class="line">   <span class="comment"># 下面那条路，rpn_bbox_pred_net，做1x1卷积维度变为 60*40*9*4</span></span><br><span class="line">   <span class="comment"># 逐像素得到其9个Anchor box四个坐标信息（其实是偏移量，后面介绍）</span></span><br><span class="line">   self._act_summaries[<span class="string">&#x27;rpn&#x27;</span>] = rpn</span><br><span class="line"></span><br><span class="line">   rpn_cls_score = self.rpn_cls_score_net(rpn) <span class="comment"># batch * (num_anchors * 2) * h * w</span></span><br><span class="line">   </span><br><span class="line"><span class="comment"># 这些代码主要做一些维度变换，满足运算条件</span></span><br><span class="line">   </span><br><span class="line">   <span class="comment"># change it so that the score has 2 as its channel size</span></span><br><span class="line">   rpn_cls_score_reshape = rpn_cls_score.view(<span class="number">1</span>, <span class="number">2</span>, -<span class="number">1</span>, rpn_cls_score.size()[-<span class="number">1</span>]) <span class="comment"># batch * 2 * (num_anchors*h) * w</span></span><br><span class="line">   rpn_cls_prob_reshape = F.softmax(rpn_cls_score_reshape, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">   <span class="comment"># Move channel to the last dimenstion, to fit the input of python functions</span></span><br><span class="line">   rpn_cls_prob = rpn_cls_prob_reshape.view_as(rpn_cls_score).permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>) <span class="comment"># batch * h * w * (num_anchors * 2)</span></span><br><span class="line">   rpn_cls_score = rpn_cls_score.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>) <span class="comment"># batch * h * w * (num_anchors * 2)</span></span><br><span class="line">   rpn_cls_score_reshape = rpn_cls_score_reshape.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>).contiguous()  <span class="comment"># batch * (num_anchors*h) * w * 2</span></span><br><span class="line"></span><br><span class="line">   rpn_cls_pred = torch.<span class="built_in">max</span>(rpn_cls_score_reshape.view(-<span class="number">1</span>, <span class="number">2</span>), <span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">   rpn_bbox_pred = self.rpn_bbox_pred_net(rpn)</span><br><span class="line">   rpn_bbox_pred = rpn_bbox_pred.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>).contiguous()  <span class="comment"># batch * h * w * (num_anchors*4)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在这里进行RPN层的预测</span></span><br><span class="line">   <span class="keyword">if</span> self._mode == <span class="string">&#x27;TRAIN&#x27;</span>:</span><br><span class="line">     <span class="comment"># 预测出roi和roi的得分</span></span><br><span class="line">     rois, roi_scores = self._proposal_layer(rpn_cls_prob, rpn_bbox_pred) <span class="comment"># rois, roi_scores are varible</span></span><br><span class="line">     rpn_labels = self._anchor_target_layer(rpn_cls_score)</span><br><span class="line">     rois, _ = self._proposal_target_layer(rois, roi_scores)</span><br><span class="line">   <span class="keyword">else</span>:</span><br><span class="line">     <span class="keyword">if</span> cfg.TEST.MODE == <span class="string">&#x27;nms&#x27;</span>:</span><br><span class="line">       rois, _ = self._proposal_layer(rpn_cls_prob, rpn_bbox_pred)</span><br><span class="line">     <span class="keyword">elif</span> cfg.TEST.MODE == <span class="string">&#x27;top&#x27;</span>:</span><br><span class="line">       rois, _ = self._proposal_top_layer(rpn_cls_prob, rpn_bbox_pred)</span><br><span class="line">     <span class="keyword">else</span>:</span><br><span class="line">       <span class="keyword">raise</span> NotImplementedError</span><br></pre></td></tr></table></figure>
+
 <p>一开始，仔细看了代码，发现它的RPN层的输出并没有上面图片那样的softmax一下，而是直接使用前面的3x3卷积后的tensor简单进行了一下reshape然后将后面的维度当作了score。但是后面又想了想，在forward函数最后，return了一个add_loss()，也就是说，在这里面为RPN的cls_score增加了loss函数，所以之后反向传播的时候会根据这个函数在之前的1x1卷积中学习，使之得到二分类的分数。</p>
-<h3 id="网络的损失函数-add-loss"><a href="#网络的损失函数-add-loss" class="headerlink" title="网络的损失函数 _add_loss():"></a>网络的损失函数 _add_loss():</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_add_losses</span><span class="params">(self, sigma_rpn=<span class="number">3.0</span>)</span>:</span></span><br><span class="line">  <span class="comment"># RPN, class loss</span></span><br><span class="line">  rpn_cls_score = self._predictions[<span class="string">'rpn_cls_score_reshape'</span>].view(<span class="number">-1</span>, <span class="number">2</span>)</span><br><span class="line">  rpn_label = self._anchor_targets[<span class="string">'rpn_labels'</span>].view(<span class="number">-1</span>)</span><br><span class="line">  rpn_select = Variable((rpn_label.data != <span class="number">-1</span>).nonzero().view(<span class="number">-1</span>))</span><br><span class="line">  rpn_cls_score = rpn_cls_score.index_select(<span class="number">0</span>, rpn_select).contiguous().view(<span class="number">-1</span>, <span class="number">2</span>)</span><br><span class="line">  rpn_label = rpn_label.index_select(<span class="number">0</span>, rpn_select).contiguous().view(<span class="number">-1</span>)</span><br><span class="line">  rpn_cross_entropy = F.cross_entropy(rpn_cls_score, rpn_label)</span><br><span class="line">  <span class="comment">#交叉熵损失</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># RPN, bbox loss</span></span><br><span class="line">  rpn_bbox_pred = self._predictions[<span class="string">'rpn_bbox_pred'</span>]</span><br><span class="line">  rpn_bbox_targets = self._anchor_targets[<span class="string">'rpn_bbox_targets'</span>]</span><br><span class="line">  rpn_bbox_inside_weights = self._anchor_targets[<span class="string">'rpn_bbox_inside_weights'</span>]</span><br><span class="line">  rpn_bbox_outside_weights = self._anchor_targets[<span class="string">'rpn_bbox_outside_weights'</span>]</span><br><span class="line">  rpn_loss_box = self._smooth_l1_loss(rpn_bbox_pred, rpn_bbox_targets, rpn_bbox_inside_weights,</span><br><span class="line">                                        rpn_bbox_outside_weights, sigma=sigma_rpn, dim=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">  <span class="comment">#L1 loss</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># RCNN, class loss</span></span><br><span class="line">  cls_score = self._predictions[<span class="string">"cls_score"</span>]</span><br><span class="line">  label = self._proposal_targets[<span class="string">"labels"</span>].view(<span class="number">-1</span>)</span><br><span class="line">  cross_entropy = F.cross_entropy(cls_score.view(<span class="number">-1</span>, self._num_classes), label)</span><br><span class="line"></span><br><span class="line">  <span class="comment"># RCNN, bbox loss</span></span><br><span class="line">  bbox_pred = self._predictions[<span class="string">'bbox_pred'</span>]</span><br><span class="line">  bbox_targets = self._proposal_targets[<span class="string">'bbox_targets'</span>]</span><br><span class="line">  bbox_inside_weights = self._proposal_targets[<span class="string">'bbox_inside_weights'</span>]</span><br><span class="line">  bbox_outside_weights = self._proposal_targets[<span class="string">'bbox_outside_weights'</span>]</span><br><span class="line">  loss_box = self._smooth_l1_loss(bbox_pred, bbox_targets, bbox_inside_weights, bbox_outside_weights)</span><br><span class="line"></span><br><span class="line">  self._losses[<span class="string">'cross_entropy'</span>] = cross_entropy</span><br><span class="line">  self._losses[<span class="string">'loss_box'</span>] = loss_box</span><br><span class="line">  self._losses[<span class="string">'rpn_cross_entropy'</span>] = rpn_cross_entropy</span><br><span class="line">  self._losses[<span class="string">'rpn_loss_box'</span>] = rpn_loss_box</span><br><span class="line"></span><br><span class="line">  loss = cross_entropy + loss_box + rpn_cross_entropy + rpn_loss_box</span><br><span class="line">  self._losses[<span class="string">'total_loss'</span>] = loss</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> k <span class="keyword">in</span> self._losses.keys():</span><br><span class="line">    self._event_summaries[k] = self._losses[k]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>RPN在提取的特征上首先进行一个3x3卷积，有人说是进行语义空间的转换。然后使用1x1卷积分别进行二分类和位置回归。这里着重要明白这两个卷积就是进行分类和回归的操作，一开始我一直不理解这个卷积，还以为分类与回归的操作是后面使用某些fc层来实现的。其实，RPN就是一个全卷积的网络，<em>这样对于输入的图片尺度没有了要求</em>（<a href="https://www.jianshu.com/p/9da1f0756813" target="_blank" rel="noopener">参考</a>）。</p>
+<h3 id="网络的损失函数-add-loss"><a href="#网络的损失函数-add-loss" class="headerlink" title="网络的损失函数 _add_loss():"></a>网络的损失函数 _add_loss():</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_add_losses</span>(<span class="params">self, sigma_rpn=<span class="number">3.0</span></span>):</span><br><span class="line">  <span class="comment"># RPN, class loss</span></span><br><span class="line">  rpn_cls_score = self._predictions[<span class="string">&#x27;rpn_cls_score_reshape&#x27;</span>].view(-<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">  rpn_label = self._anchor_targets[<span class="string">&#x27;rpn_labels&#x27;</span>].view(-<span class="number">1</span>)</span><br><span class="line">  rpn_select = Variable((rpn_label.data != -<span class="number">1</span>).nonzero().view(-<span class="number">1</span>))</span><br><span class="line">  rpn_cls_score = rpn_cls_score.index_select(<span class="number">0</span>, rpn_select).contiguous().view(-<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">  rpn_label = rpn_label.index_select(<span class="number">0</span>, rpn_select).contiguous().view(-<span class="number">1</span>)</span><br><span class="line">  rpn_cross_entropy = F.cross_entropy(rpn_cls_score, rpn_label)</span><br><span class="line">  <span class="comment">#交叉熵损失</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># RPN, bbox loss</span></span><br><span class="line">  rpn_bbox_pred = self._predictions[<span class="string">&#x27;rpn_bbox_pred&#x27;</span>]</span><br><span class="line">  rpn_bbox_targets = self._anchor_targets[<span class="string">&#x27;rpn_bbox_targets&#x27;</span>]</span><br><span class="line">  rpn_bbox_inside_weights = self._anchor_targets[<span class="string">&#x27;rpn_bbox_inside_weights&#x27;</span>]</span><br><span class="line">  rpn_bbox_outside_weights = self._anchor_targets[<span class="string">&#x27;rpn_bbox_outside_weights&#x27;</span>]</span><br><span class="line">  rpn_loss_box = self._smooth_l1_loss(rpn_bbox_pred, rpn_bbox_targets, rpn_bbox_inside_weights,</span><br><span class="line">                                        rpn_bbox_outside_weights, sigma=sigma_rpn, dim=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">  <span class="comment">#L1 loss</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># RCNN, class loss</span></span><br><span class="line">  cls_score = self._predictions[<span class="string">&quot;cls_score&quot;</span>]</span><br><span class="line">  label = self._proposal_targets[<span class="string">&quot;labels&quot;</span>].view(-<span class="number">1</span>)</span><br><span class="line">  cross_entropy = F.cross_entropy(cls_score.view(-<span class="number">1</span>, self._num_classes), label)</span><br><span class="line"></span><br><span class="line">  <span class="comment"># RCNN, bbox loss</span></span><br><span class="line">  bbox_pred = self._predictions[<span class="string">&#x27;bbox_pred&#x27;</span>]</span><br><span class="line">  bbox_targets = self._proposal_targets[<span class="string">&#x27;bbox_targets&#x27;</span>]</span><br><span class="line">  bbox_inside_weights = self._proposal_targets[<span class="string">&#x27;bbox_inside_weights&#x27;</span>]</span><br><span class="line">  bbox_outside_weights = self._proposal_targets[<span class="string">&#x27;bbox_outside_weights&#x27;</span>]</span><br><span class="line">  loss_box = self._smooth_l1_loss(bbox_pred, bbox_targets, bbox_inside_weights, bbox_outside_weights)</span><br><span class="line"></span><br><span class="line">  self._losses[<span class="string">&#x27;cross_entropy&#x27;</span>] = cross_entropy</span><br><span class="line">  self._losses[<span class="string">&#x27;loss_box&#x27;</span>] = loss_box</span><br><span class="line">  self._losses[<span class="string">&#x27;rpn_cross_entropy&#x27;</span>] = rpn_cross_entropy</span><br><span class="line">  self._losses[<span class="string">&#x27;rpn_loss_box&#x27;</span>] = rpn_loss_box</span><br><span class="line"></span><br><span class="line">  loss = cross_entropy + loss_box + rpn_cross_entropy + rpn_loss_box</span><br><span class="line">  self._losses[<span class="string">&#x27;total_loss&#x27;</span>] = loss</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> k <span class="keyword">in</span> self._losses.keys():</span><br><span class="line">    self._event_summaries[k] = self._losses[k]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
+
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>RPN在提取的特征上首先进行一个3x3卷积，有人说是进行语义空间的转换。然后使用1x1卷积分别进行二分类和位置回归。这里着重要明白这两个卷积就是进行分类和回归的操作，一开始我一直不理解这个卷积，还以为分类与回归的操作是后面使用某些fc层来实现的。其实，RPN就是一个全卷积的网络，<em>这样对于输入的图片尺度没有了要求</em>（<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9da1f0756813">参考</a>）。</p>
 <p>例如分类时使用的卷积核的通道数为9x2，每个像素点9个anchor，每个anchor进行二分类，使用交叉熵损失函数。回归时使用9x4个通道。</p>
 <hr>
 <p>10.5更新</p>
-<p><img src="/images/pytorch-faster-rcnn-代码阅读/2.png" alt="img"></p>
+<p><img src="/images/pytorch-faster-rcnn-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/2.png" alt="img"></p>
 <h5 id="三个layer"><a href="#三个layer" class="headerlink" title="三个layer"></a>三个layer</h5><p>在训练部分有三个layer，一开始一直搞不清楚各自的功能</p>
 <ul>
 <li><p>_proposal_layer</p>
 <p>这个layer在训练和预测时都会去使用，输入的是前面1x1卷积得到的预测的bbox位置（实际上是增量▲x，▲y，▲h，▲w等加到对应的anchor上），用来将人为定义的上万个anchor，根据nms等规则排除（定义的长宽阈值，前多少名的socre排序【score也是另一路1x1卷积得到的】，NMS，再次排名等），生成一定数量的rois，返回得到的roi和各roi的相应得分。</p>
 </li>
-</ul>
-<ul>
 <li><p>_anchor_target_layer</p>
 <p>为每个gt分配anchor。用来判断所有的anchor属于前景还是后景，只在训练的时候使用。并且判断和gt的交并比，然后得到anchor的学习目标，个人理解是为了在后面的时候让anchor可以训练到回归位置。也就是上面所说的偏移量？（待证）</p>
 <ul>
@@ -461,22 +464,22 @@ height:50vh;
 <p>①    去除掉超过1000*600这原图的边界的anchor box</p>
 </li>
 </ul>
-<p>​       ②    如果anchor box与ground truth的IoU值最大，标记为正样本，label=1</p>
-<p>​       ③    如果anchor box与ground truth的IoU&gt;0.7，标记为正样本，label=1</p>
-<p>​       ④    如果anchor box与ground truth的IoU&lt;0.3，标记为负样本，label=0</p>
-<p>​    剩下的既不是正样本也不是负样本，不用于最终训练，label=-1</p>
+<p>​       ②    如果anchor box与ground truth的IoU值最大，标记为正样本，label&#x3D;1</p>
+<p>​       ③    如果anchor box与ground truth的IoU&gt;0.7，标记为正样本，label&#x3D;1</p>
+<p>​       ④    如果anchor box与ground truth的IoU&lt;0.3，标记为负样本，label&#x3D;0</p>
+<p>​	剩下的既不是正样本也不是负样本，不用于最终训练，label&#x3D;-1</p>
 <ul>
 <li><p>除了对anchor box进行标记外，另一件事情就是计算anchor box与ground truth之间的偏移量</p>
-<p>令：ground truth:标定的框也对应一个中心点位置坐标x<em>,y</em>和宽高w<em>,h</em></p>
+<p>令：ground truth:标定的框也对应一个中心点位置坐标x*,y<em>和宽高w</em>,h*</p>
 <p>anchor box: 中心点位置坐标x_a,y_a和宽高w_a,h_a<br>所以，偏移量：</p>
 </li>
 </ul>
-<p>​       △x=(x<em>-x_a)/w_a   △y=(y</em>-y_a)/h_a </p>
-<p>​       △w=log(w<em>/w_a)   △h=log(h</em>/h_a)</p>
-<p>​    通过ground truth box与预测的anchor box之间的差异来进行学习，从而是    RPN网络中的权重能够学习到预测box的能力</p>
+<p>​       △x&#x3D;(x*-x_a)&#x2F;w_a   △y&#x3D;(y*-y_a)&#x2F;h_a </p>
+<p>​       △w&#x3D;log(w*&#x2F;w_a)   △h&#x3D;log(h*&#x2F;h_a)</p>
+<p>​	通过ground truth box与预测的anchor box之间的差异来进行学习，从而是	RPN网络中的权重能够学习到预测box的能力</p>
 </li>
 <li><p>_proposal_target_layer</p>
-<p>为每个gt分配proposal。负责在训练RoIHead/Fast R-CNN的时候，从RoIs选择一部分(比如128个)用以训练，生成roi的label。同时给定bbox回归的训练目标, 返回（sample_RoI, gt_RoI_loc, gt_RoI_label）</p>
+<p>为每个gt分配proposal。负责在训练RoIHead&#x2F;Fast R-CNN的时候，从RoIs选择一部分(比如128个)用以训练，生成roi的label。同时给定bbox回归的训练目标, 返回（sample_RoI, gt_RoI_loc, gt_RoI_label）</p>
 </li>
 </ul>
 
@@ -488,7 +491,7 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/10/04/flask-命令行运行报错：无法定位flask应用/" title="flask 命令行运行报错：无法定位flask应用">
+                <a href= "/2019/10/04/flask-%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8Dflask%E5%BA%94%E7%94%A8/" title= "flask 命令行运行报错：无法定位flask应用">
                     <div class="nextTitle">flask 命令行运行报错：无法定位flask应用</div>
                 </a>
             
@@ -496,7 +499,7 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/09/07/Faster-RCNN 理解笔记/" title="Faster-RCNN 理解笔记">
+                <a href= "/2019/09/07/Faster-RCNN%20%E7%90%86%E8%A7%A3%E7%AC%94%E8%AE%B0/" title= "Faster-RCNN 理解笔记">
                     <div class="prevTitle">Faster-RCNN 理解笔记</div>
                 </a>
             
@@ -543,21 +546,21 @@ height:50vh;
     
         
             
-                <a href="mailto:goodxue@gmial.com" class="iconfont-archer email" title="email"></a>
+                <a href="mailto:goodxue@gmial.com" class="iconfont-archer email" title=email ></a>
             
         
     
         
             
-                <a href="//github.com/goodxue" class="iconfont-archer github" target="_blank" title="github"></a>
+                <a href="//github.com/goodxue" class="iconfont-archer github" target="_blank" title=github></a>
             
         
     
         
             
-                <span class="iconfont-archer wechat" title="wechat">
+                <span class="iconfont-archer wechat" title=wechat>
                   
-                  <img class="profile-qr" src="/assets/wechatQR.png">
+                  <img class="profile-qr" src="/assets/wechatQR.png" />
                 </span>
             
         
@@ -631,7 +634,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#network-的基本层次结构"><span class="toc-number">1.</span> <span class="toc-text">network 的基本层次结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#init"><span class="toc-number">1.1.</span> <span class="toc-text">init__():</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#forward"><span class="toc-number">1.2.</span> <span class="toc-text">forward():</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#再来看self-predict-："><span class="toc-number">1.3.</span> <span class="toc-text">再来看self._predict()：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RPN层的实现"><span class="toc-number">2.</span> <span class="toc-text">RPN层的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络的损失函数-add-loss"><span class="toc-number">3.</span> <span class="toc-text">网络的损失函数 _add_loss():</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#小结"><span class="toc-number">3.1.</span> <span class="toc-text">小结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#三个layer"><span class="toc-number">3.1.1.</span> <span class="toc-text">三个layer</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#network-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">network 的基本层次结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#init"><span class="toc-number">1.1.</span> <span class="toc-text">init__():</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#forward"><span class="toc-number">1.2.</span> <span class="toc-text">forward():</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%8D%E6%9D%A5%E7%9C%8Bself-predict-%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">再来看self._predict()：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RPN%E5%B1%82%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">RPN层的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-add-loss"><span class="toc-number">3.</span> <span class="toc-text">网络的损失函数 _add_loss():</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">3.1.</span> <span class="toc-text">小结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89%E4%B8%AAlayer"><span class="toc-number">3.1.1.</span> <span class="toc-text">三个layer</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -783,9 +786,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 13
+        Total : 14
         </div>
         <!-- search  -->
         
@@ -796,22 +806,36 @@ top:50vh;
     
     
     
+    <div class="archive-year"> 2022 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/17</span><a class="archive-post-title" href= "/2022/12/17/RTX4090%E9%85%8D%E7%BD%AEPytorch%E7%8E%AF%E5%A2%83/" >RTX4090 配置 Pytorch环境相关问题记录</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/20</span><a class="archive-post-title" href="/2021/04/20/Opencv-轮廓-contours的踩坑/">Opencv 轮廓 contours的踩坑</a>
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2021/04/20/Opencv-%E8%BD%AE%E5%BB%93-contours%E7%9A%84%E8%B8%A9%E5%9D%91/" >Opencv 轮廓 contours的踩坑</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/2021/03/22/Carla的坐标变换/">Carla的坐标变换</a>
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2021/03/22/Carla%E7%9A%84%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2/" >Carla的坐标变换</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href="/2021/01/20/pytorch-tensor-的一些奇妙操作/">pytorch tensor 的一些奇妙操作</a>
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2021/01/20/pytorch-tensor-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%A5%87%E5%A6%99%E6%93%8D%E4%BD%9C/" >pytorch tensor 的一些奇妙操作</a>
         </li>
     
     
@@ -825,27 +849,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/24</span><a class="archive-post-title" href="/2020/11/24/Nuscenes-数据集/">Nuscenes 数据集</a>
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2020/11/24/Nuscenes-%E6%95%B0%E6%8D%AE%E9%9B%86/" >Nuscenes 数据集</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/21</span><a class="archive-post-title" href="/2020/11/21/Linux-Shell-学习/">Linux Shell 学习</a>
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2020/11/21/Linux-Shell-%E5%AD%A6%E4%B9%A0/" >Linux Shell 学习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/21</span><a class="archive-post-title" href="/2020/11/21/Pixhawk-Ubuntu18-04下仿真环境配置/">Pixhawk Ubuntu18.04下仿真环境配置</a>
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2020/11/21/Pixhawk-Ubuntu18-04%E4%B8%8B%E4%BB%BF%E7%9C%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" >Pixhawk Ubuntu18.04下仿真环境配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/20</span><a class="archive-post-title" href="/2020/11/20/ubuntu-Clash-代理配置/">ubuntu Clash 代理配置</a>
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2020/11/20/ubuntu-Clash-%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" >ubuntu Clash 代理配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/13</span><a class="archive-post-title" href="/2020/11/13/YOLO-的损失函数/">YOLO 的损失函数</a>
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2020/11/13/YOLO-%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" >YOLO 的损失函数</a>
         </li>
     
     
@@ -859,30 +883,39 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href="/2019/10/04/flask-命令行运行报错：无法定位flask应用/">flask 命令行运行报错：无法定位flask应用</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2019/10/04/flask-%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8Dflask%E5%BA%94%E7%94%A8/" >flask 命令行运行报错：无法定位flask应用</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href="/2019/10/04/pytorch-faster-rcnn-代码阅读/">pytorch-faster-rcnn 代码阅读</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2019/10/04/pytorch-faster-rcnn-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/" >pytorch-faster-rcnn 代码阅读</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/07</span><a class="archive-post-title" href="/2019/09/07/Faster-RCNN 理解笔记/">Faster-RCNN 理解笔记</a>
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2019/09/07/Faster-RCNN%20%E7%90%86%E8%A7%A3%E7%AC%94%E8%AE%B0/" >Faster-RCNN 理解笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/25</span><a class="archive-post-title" href="/2019/05/25/ROS-动态参数配置使用的一系列问题/">ROS-动态参数配置使用的一系列问题</a>
+            <span class="archive-post-date">05/25</span><a class="archive-post-title" href= "/2019/05/25/ROS-%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98/" >ROS-动态参数配置使用的一系列问题</a>
         </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/22</span><a class="archive-post-title" href="/2019/05/22/hello-world/">Hello World</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2022/12/17/hello-world/" >Hello World</a>
         </li>
     
-    </ul></div>
+    </div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
@@ -892,10 +925,10 @@ top:50vh;
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br>
-    1、请确保node版本大于6.2<br>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
     3、在根目录_config.yml里添加配置：
     <pre style="color: #787878; font-size: 0.6rem;">
 jsonContent:
@@ -922,19 +955,19 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
+        <span class="sidebar-category-name" data-categories="carla"><span class="iconfont-archer">&#xe60a;</span>carla</span>
     
         <span class="sidebar-category-name" data-categories="DL"><span class="iconfont-archer">&#xe60a;</span>DL</span>
     
-        <span class="sidebar-category-name" data-categories="carla"><span class="iconfont-archer">&#xe60a;</span>carla</span>
+        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
     
         <span class="sidebar-category-name" data-categories="opencv"><span class="iconfont-archer">&#xe60a;</span>opencv</span>
     
         <span class="sidebar-category-name" data-categories="environment"><span class="iconfont-archer">&#xe60a;</span>environment</span>
     
-        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
-    
         <span class="sidebar-category-name" data-categories="ROS"><span class="iconfont-archer">&#xe60a;</span>ROS</span>
+    
+        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

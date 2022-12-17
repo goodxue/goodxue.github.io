@@ -10,18 +10,18 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta name="author" content="Weipeng Xue">
     <meta name="renderer" content="webkit">
     <meta name="copyright" content="Weipeng Xue">
     
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
-    <meta name="description" content>
+    <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>Carla的坐标变换 · Weipeng Studio</title>
     <style type="text/css">
     @font-face {
@@ -75,10 +75,10 @@
 
 </style>
 
-    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -187,10 +187,10 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/X.png">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="icon" href= "/assets/X.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
     <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
     <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
@@ -200,7 +200,7 @@
     
     <!-- 谷歌统计  -->
     
-</head>
+<meta name="generator" content="Hexo 6.1.0"></head>
 
     
         <body class="post-body">
@@ -214,14 +214,14 @@
     
     <div class="banner">
             <div class="blog-title">
-                <a href="/">Weipeng Studio.</a>
+                <a href="/" >Weipeng Studio.</a>
             </div>
             <div class="post-title">
                 <a href="#" class="post-name">Carla的坐标变换</a>
             </div>
     </div>
     
-    <a class="home-link" href="/">Weipeng Studio.</a>
+    <a class="home-link" href=/>Weipeng Studio.</a>
 </header>
     <div class="wrapper">
         <div class="site-intro" style="
@@ -264,9 +264,9 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
-                    <div class="post-intro-tags">
+                    <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="notes">notes</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "notes">notes</a>
     
 </div>
                 
@@ -408,32 +408,40 @@ height:50vh;
 <p><strong>那么每一个transform即为相对世界原点的坐标变换，同时也就是世界坐标</strong></p>
 <p>理解了上一句话对于整体的理解就很重要了（我是最后才明白了这个，一下子就豁然开朗了）</p>
 <h4 id="相对坐标变换"><a href="#相对坐标变换" class="headerlink" title="相对坐标变换"></a>相对坐标变换</h4><p>直接上官方的样例代码。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_bounding_box</span><span class="params">(vehicle, camera)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Returns 3D bounding box for a vehicle based on camera view.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    bb_cords = ClientSideBoundingBoxes._create_bb_points(vehicle)</span><br><span class="line">    cords_x_y_z = ClientSideBoundingBoxes._vehicle_to_sensor(bb_cords, vehicle, camera)[:<span class="number">3</span>, :]</span><br><span class="line">    cords_y_minus_z_x = np.concatenate([cords_x_y_z[<span class="number">1</span>, :], -cords_x_y_z[<span class="number">2</span>, :], cords_x_y_z[<span class="number">0</span>, :]])</span><br><span class="line">    bbox = np.transpose(np.dot(camera_coordinate(camera), cords_y_minus_z_x)) <span class="comment">#8×3</span></span><br><span class="line">    camera_bbox = np.concatenate([bbox[:, <span class="number">0</span>] / bbox[:, <span class="number">2</span>], bbox[:, <span class="number">1</span>] / bbox[:, <span class="number">2</span>], bbox[:, <span class="number">2</span>]], axis=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> camera_bbox</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_bounding_box</span>(<span class="params">vehicle, camera</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Returns 3D bounding box for a vehicle based on camera view.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    bb_cords = ClientSideBoundingBoxes._create_bb_points(vehicle)</span><br><span class="line">    cords_x_y_z = ClientSideBoundingBoxes._vehicle_to_sensor(bb_cords, vehicle, camera)[:<span class="number">3</span>, :]</span><br><span class="line">    cords_y_minus_z_x = np.concatenate([cords_x_y_z[<span class="number">1</span>, :], -cords_x_y_z[<span class="number">2</span>, :], cords_x_y_z[<span class="number">0</span>, :]])</span><br><span class="line">    bbox = np.transpose(np.dot(camera_coordinate(camera), cords_y_minus_z_x)) <span class="comment">#8×3</span></span><br><span class="line">    camera_bbox = np.concatenate([bbox[:, <span class="number">0</span>] / bbox[:, <span class="number">2</span>], bbox[:, <span class="number">1</span>] / bbox[:, <span class="number">2</span>], bbox[:, <span class="number">2</span>]], axis=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> camera_bbox</span><br></pre></td></tr></table></figure>
+
 <p>分别介绍每一句意义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_create_bb_points(vehicle) #获取了车辆的局部坐标系下的三维框的每一个顶点，局部坐标系原点就是3D框的几何中心</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_create_bb_points</span><span class="params">(vehicle)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Returns 3D bounding box for a vehicle.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    cords = np.zeros((<span class="number">8</span>, <span class="number">4</span>))</span><br><span class="line">    extent = vehicle.bounding_box.extent <span class="comment">#extent是一个指向一个顶点的向量，extent.x即0.5length(x轴方向，x:forward,y:right,z:height)</span></span><br><span class="line">    cords[<span class="number">0</span>, :] = np.array([extent.x, extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">1</span>, :] = np.array([-extent.x, extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">2</span>, :] = np.array([-extent.x, -extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">3</span>, :] = np.array([extent.x, -extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">4</span>, :] = np.array([extent.x, extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">5</span>, :] = np.array([-extent.x, extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">6</span>, :] = np.array([-extent.x, -extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">7</span>, :] = np.array([extent.x, -extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    <span class="keyword">return</span> cords</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_create_bb_points(vehicle) #获取了车辆的局部坐标系下的三维框的每一个顶点，局部坐标系原点就是3D框的几何中心</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_create_bb_points</span>(<span class="params">vehicle</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Returns 3D bounding box for a vehicle.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    cords = np.zeros((<span class="number">8</span>, <span class="number">4</span>))</span><br><span class="line">    extent = vehicle.bounding_box.extent <span class="comment">#extent是一个指向一个顶点的向量，extent.x即0.5length(x轴方向，x:forward,y:right,z:height)</span></span><br><span class="line">    cords[<span class="number">0</span>, :] = np.array([extent.x, extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">1</span>, :] = np.array([-extent.x, extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">2</span>, :] = np.array([-extent.x, -extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">3</span>, :] = np.array([extent.x, -extent.y, -extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">4</span>, :] = np.array([extent.x, extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">5</span>, :] = np.array([-extent.x, extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">6</span>, :] = np.array([-extent.x, -extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    cords[<span class="number">7</span>, :] = np.array([extent.x, -extent.y, extent.z, <span class="number">1</span>])</span><br><span class="line">    <span class="keyword">return</span> cords</span><br></pre></td></tr></table></figure>
+
 <p>下一句：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClientSideBoundingBoxes._vehicle_to_sensor(bb_cords, vehicle, camera)[:<span class="number">3</span>, :]</span><br></pre></td></tr></table></figure>
+
 <p>将车辆的bbox坐标转换到了相机</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@staticmethod</span><br><span class="line">def _vehicle_to_sensor(cords, vehicle, sensor):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Transforms coordinates of a vehicle bounding box to sensor.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    world_cord = ClientSideBoundingBoxes._vehicle_to_world(cords, vehicle)</span><br><span class="line">    sensor_cord = ClientSideBoundingBoxes._world_to_sensor(world_cord, sensor)</span><br><span class="line">    return sensor_cord</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@staticmethod</span><br><span class="line">def _vehicle_to_sensor(cords, vehicle, sensor):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Transforms coordinates of a vehicle bounding box to sensor.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    world_cord = ClientSideBoundingBoxes._vehicle_to_world(cords, vehicle)</span><br><span class="line">    sensor_cord = ClientSideBoundingBoxes._world_to_sensor(world_cord, sensor)</span><br><span class="line">    return sensor_cord</span><br></pre></td></tr></table></figure>
 <p>分别是车辆到世界，世界再到相机，思路很清晰，先看第一个。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_vehicle_to_world</span><span class="params">(cords, vehicle)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Transforms coordinates of a vehicle bounding box to world.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    bb_transform = carla.Transform(vehicle.bounding_box.location)</span><br><span class="line">    bb_vehicle_matrix = ClientSideBoundingBoxes.get_matrix(bb_transform)</span><br><span class="line">    vehicle_world_matrix = ClientSideBoundingBoxes.get_matrix(vehicle.get_transform())</span><br><span class="line">    bb_world_matrix = np.dot(vehicle_world_matrix, bb_vehicle_matrix)</span><br><span class="line">    world_cords = np.dot(bb_world_matrix, np.transpose(cords))</span><br><span class="line">    <span class="keyword">return</span> world_cords</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_vehicle_to_world</span>(<span class="params">cords, vehicle</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Transforms coordinates of a vehicle bounding box to world.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    bb_transform = carla.Transform(vehicle.bounding_box.location)</span><br><span class="line">    bb_vehicle_matrix = ClientSideBoundingBoxes.get_matrix(bb_transform)</span><br><span class="line">    vehicle_world_matrix = ClientSideBoundingBoxes.get_matrix(vehicle.get_transform())</span><br><span class="line">    bb_world_matrix = np.dot(vehicle_world_matrix, bb_vehicle_matrix)</span><br><span class="line">    world_cords = np.dot(bb_world_matrix, np.transpose(cords))</span><br><span class="line">    <span class="keyword">return</span> world_cords</span><br></pre></td></tr></table></figure>
+
 <p>获取了车辆boundingbox的一个局部转换（boundingbox是相对车辆坐标系的，重复强调）</p>
 <p>get_matrix将这个转换变换为了变换矩阵形式（平移旋转4×4的矩阵）</p>
 <p>之后再获得车辆世界坐标系下的变换矩阵，点乘车辆世界变换矩阵和局部的boungdingbox的变换矩阵，获得了boundingbox到世界的变换矩阵。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_world_to_sensor</span><span class="params">(cords, sensor)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Transforms world coordinates to sensor.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    sensor_world_matrix = ClientSideBoundingBoxes.get_matrix(sensor.get_transform())</span><br><span class="line">    world_sensor_matrix = np.linalg.inv(sensor_world_matrix)</span><br><span class="line">    sensor_cords = np.dot(world_sensor_matrix, cords)</span><br><span class="line">    <span class="keyword">return</span> sensor_cords</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_world_to_sensor</span>(<span class="params">cords, sensor</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Transforms world coordinates to sensor.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    sensor_world_matrix = ClientSideBoundingBoxes.get_matrix(sensor.get_transform())</span><br><span class="line">    world_sensor_matrix = np.linalg.inv(sensor_world_matrix)</span><br><span class="line">    sensor_cords = np.dot(world_sensor_matrix, cords)</span><br><span class="line">    <span class="keyword">return</span> sensor_cords</span><br></pre></td></tr></table></figure>
+
 <p>之后将世界转换到相机坐标系下，同样的思路，获得世界坐标系下相机的世界矩阵（重复强调，就是相对于世界原点的变换矩阵）</p>
 <p>将这个世界（变换）矩阵求逆，就得到了将世界到相机坐标系下的变换矩阵，通过左乘世界坐标系下的世界坐标，将这个世界坐标转换到了相机坐标系下。从变量名看，sensor_world为相机到世界，逆就是world_sensor了嘛。</p>
 <p>注意输入的cord是一个8×4的局部坐标矩阵（第四维为补的1），输出为4×8（转置 了），主函数中取[:3,:]即获取了xyz的世界坐标。</p>
 <h5 id="Transform的含义"><a href="#Transform的含义" class="headerlink" title="Transform的含义"></a>Transform的含义</h5><p>carla定义的Transform就是一个变换，输出我设置的一个相机的世界Transform</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Transform(Location(x=-67,y=-126.5,z=5.0),Rotation(pitch=-14.999996,yaw=155.000031,roll=0.00000))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Transform(Location(x=-67,y=-126.5,z=5.0),Rotation(pitch=-14.999996,yaw=155.000031,roll=0.00000))</span><br></pre></td></tr></table></figure>
+
 <p>使用get_matrix将这个变换转换成了三维世界下的变换矩阵（4×4）。</p>
 <h4 id="相机坐标转图像坐标"><a href="#相机坐标转图像坐标" class="headerlink" title="相机坐标转图像坐标"></a>相机坐标转图像坐标</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cords_y_minus_z_x = np.concatenate([cords_x_y_z[<span class="number">1</span>, :], -cords_x_y_z[<span class="number">2</span>, :], cords_x_y_z[<span class="number">0</span>, :]])</span><br></pre></td></tr></table></figure>
+
 <p>这一句将相机坐标系下的坐标进行图像坐标轴的变换。</p>
-<p><img src="/images/Carla的坐标变换/1.png" alt="img"></p>
-<p><img src="C:\Users\Xue\Documents\Codings\myblog_hexo\source\images\Carla的坐标变换\1.png" alt="1"></p>
+<p><img src="/images/Carla%E7%9A%84%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2/1.png" alt="img"></p>
 <p>y变x，-z变y，x变z</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bbox = np.transpose(np.dot(camera_coordinate(camera), cords_y_minus_z_x))</span><br></pre></td></tr></table></figure>
+
 <p>使用相机内参矩阵将相机坐标系下的坐标变换为图像坐标系下的坐标。</p>
 <p>主函数最后返回8×3的图像坐标，第三维为1，前两维分别是图像(x,y)</p>
 <p>结束啦！</p>
@@ -444,15 +452,15 @@ height:50vh;
 <p>因此在读取数据后，需要进行坐标变换，将KITTI格式的GT从<strong>图像坐标系</strong>变换到相机坐标系下</p>
 <blockquote>
 <p>做法就是:</p>
-<p>x = location[‘z’]</p>
-<p>y = location[‘x’]</p>
-<p>z = -location[‘y’]</p>
+<p>x &#x3D; location[‘z’]</p>
+<p>y &#x3D; location[‘x’]</p>
+<p>z &#x3D; -location[‘y’]</p>
 </blockquote>
 <p>若没有进行坐标变换则进行坐标系矩阵乘法后结果直接没用（必然的）</p>
 <p>这个变换后[x,y,z,1]就是相机source坐标系下的点，需要得到target坐标系下的坐标[x’,y’,z’,1]</p>
 <p>有了前面的总结，可以容易的知道:</p>
 <blockquote>
-<p>[x’,y’,z’,1] = inv(target_matrix) · source_matrix · transpose([x,y,z,1])</p>
+<p>[x’,y’,z’,1] &#x3D; inv(target_matrix) · source_matrix · transpose([x,y,z,1])</p>
 </blockquote>
 <p>最后这么算结果正确。</p>
 <p>变换完的坐标系仍然是相机坐标系，还需要转换为图像坐标系与KITTI数据保持一致。</p>
@@ -466,7 +474,7 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2021/04/20/Opencv-轮廓-contours的踩坑/" title="Opencv 轮廓 contours的踩坑">
+                <a href= "/2021/04/20/Opencv-%E8%BD%AE%E5%BB%93-contours%E7%9A%84%E8%B8%A9%E5%9D%91/" title= "Opencv 轮廓 contours的踩坑">
                     <div class="nextTitle">Opencv 轮廓 contours的踩坑</div>
                 </a>
             
@@ -474,7 +482,7 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2021/01/20/pytorch-tensor-的一些奇妙操作/" title="pytorch tensor 的一些奇妙操作">
+                <a href= "/2021/01/20/pytorch-tensor-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%A5%87%E5%A6%99%E6%93%8D%E4%BD%9C/" title= "pytorch tensor 的一些奇妙操作">
                     <div class="prevTitle">pytorch tensor 的一些奇妙操作</div>
                 </a>
             
@@ -521,21 +529,21 @@ height:50vh;
     
         
             
-                <a href="mailto:goodxue@gmial.com" class="iconfont-archer email" title="email"></a>
+                <a href="mailto:goodxue@gmial.com" class="iconfont-archer email" title=email ></a>
             
         
     
         
             
-                <a href="//github.com/goodxue" class="iconfont-archer github" target="_blank" title="github"></a>
+                <a href="//github.com/goodxue" class="iconfont-archer github" target="_blank" title=github></a>
             
         
     
         
             
-                <span class="iconfont-archer wechat" title="wechat">
+                <span class="iconfont-archer wechat" title=wechat>
                   
-                  <img class="profile-qr" src="/assets/wechatQR.png">
+                  <img class="profile-qr" src="/assets/wechatQR.png" />
                 </span>
             
         
@@ -609,7 +617,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Carla的坐标变换"><span class="toc-number">1.</span> <span class="toc-text">Carla的坐标变换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相对坐标变换"><span class="toc-number">1.1.</span> <span class="toc-text">相对坐标变换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Transform的含义"><span class="toc-number">1.1.1.</span> <span class="toc-text">Transform的含义</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相机坐标转图像坐标"><span class="toc-number">1.2.</span> <span class="toc-text">相机坐标转图像坐标</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Carla%E7%9A%84%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-number">1.</span> <span class="toc-text">Carla的坐标变换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.</span> <span class="toc-text">相对坐标变换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Transform%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">Transform的含义</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E6%9C%BA%E5%9D%90%E6%A0%87%E8%BD%AC%E5%9B%BE%E5%83%8F%E5%9D%90%E6%A0%87"><span class="toc-number">1.2.</span> <span class="toc-text">相机坐标转图像坐标</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -761,9 +769,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 13
+        Total : 14
         </div>
         <!-- search  -->
         
@@ -774,22 +789,36 @@ top:50vh;
     
     
     
+    <div class="archive-year"> 2022 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/17</span><a class="archive-post-title" href= "/2022/12/17/RTX4090%E9%85%8D%E7%BD%AEPytorch%E7%8E%AF%E5%A2%83/" >RTX4090 配置 Pytorch环境相关问题记录</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/20</span><a class="archive-post-title" href="/2021/04/20/Opencv-轮廓-contours的踩坑/">Opencv 轮廓 contours的踩坑</a>
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2021/04/20/Opencv-%E8%BD%AE%E5%BB%93-contours%E7%9A%84%E8%B8%A9%E5%9D%91/" >Opencv 轮廓 contours的踩坑</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/2021/03/22/Carla的坐标变换/">Carla的坐标变换</a>
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2021/03/22/Carla%E7%9A%84%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2/" >Carla的坐标变换</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href="/2021/01/20/pytorch-tensor-的一些奇妙操作/">pytorch tensor 的一些奇妙操作</a>
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2021/01/20/pytorch-tensor-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%A5%87%E5%A6%99%E6%93%8D%E4%BD%9C/" >pytorch tensor 的一些奇妙操作</a>
         </li>
     
     
@@ -803,27 +832,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/24</span><a class="archive-post-title" href="/2020/11/24/Nuscenes-数据集/">Nuscenes 数据集</a>
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2020/11/24/Nuscenes-%E6%95%B0%E6%8D%AE%E9%9B%86/" >Nuscenes 数据集</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/21</span><a class="archive-post-title" href="/2020/11/21/Linux-Shell-学习/">Linux Shell 学习</a>
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2020/11/21/Linux-Shell-%E5%AD%A6%E4%B9%A0/" >Linux Shell 学习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/21</span><a class="archive-post-title" href="/2020/11/21/Pixhawk-Ubuntu18-04下仿真环境配置/">Pixhawk Ubuntu18.04下仿真环境配置</a>
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2020/11/21/Pixhawk-Ubuntu18-04%E4%B8%8B%E4%BB%BF%E7%9C%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" >Pixhawk Ubuntu18.04下仿真环境配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/20</span><a class="archive-post-title" href="/2020/11/20/ubuntu-Clash-代理配置/">ubuntu Clash 代理配置</a>
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2020/11/20/ubuntu-Clash-%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" >ubuntu Clash 代理配置</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/13</span><a class="archive-post-title" href="/2020/11/13/YOLO-的损失函数/">YOLO 的损失函数</a>
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2020/11/13/YOLO-%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" >YOLO 的损失函数</a>
         </li>
     
     
@@ -837,30 +866,39 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href="/2019/10/04/flask-命令行运行报错：无法定位flask应用/">flask 命令行运行报错：无法定位flask应用</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2019/10/04/flask-%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8Dflask%E5%BA%94%E7%94%A8/" >flask 命令行运行报错：无法定位flask应用</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href="/2019/10/04/pytorch-faster-rcnn-代码阅读/">pytorch-faster-rcnn 代码阅读</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2019/10/04/pytorch-faster-rcnn-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/" >pytorch-faster-rcnn 代码阅读</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/07</span><a class="archive-post-title" href="/2019/09/07/Faster-RCNN 理解笔记/">Faster-RCNN 理解笔记</a>
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2019/09/07/Faster-RCNN%20%E7%90%86%E8%A7%A3%E7%AC%94%E8%AE%B0/" >Faster-RCNN 理解笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/25</span><a class="archive-post-title" href="/2019/05/25/ROS-动态参数配置使用的一系列问题/">ROS-动态参数配置使用的一系列问题</a>
+            <span class="archive-post-date">05/25</span><a class="archive-post-title" href= "/2019/05/25/ROS-%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98/" >ROS-动态参数配置使用的一系列问题</a>
         </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/22</span><a class="archive-post-title" href="/2019/05/22/hello-world/">Hello World</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2022/12/17/hello-world/" >Hello World</a>
         </li>
     
-    </ul></div>
+    </div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
@@ -870,10 +908,10 @@ top:50vh;
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br>
-    1、请确保node版本大于6.2<br>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
     3、在根目录_config.yml里添加配置：
     <pre style="color: #787878; font-size: 0.6rem;">
 jsonContent:
@@ -900,19 +938,19 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
+        <span class="sidebar-category-name" data-categories="carla"><span class="iconfont-archer">&#xe60a;</span>carla</span>
     
         <span class="sidebar-category-name" data-categories="DL"><span class="iconfont-archer">&#xe60a;</span>DL</span>
     
-        <span class="sidebar-category-name" data-categories="carla"><span class="iconfont-archer">&#xe60a;</span>carla</span>
+        <span class="sidebar-category-name" data-categories="study"><span class="iconfont-archer">&#xe60a;</span>study</span>
     
         <span class="sidebar-category-name" data-categories="opencv"><span class="iconfont-archer">&#xe60a;</span>opencv</span>
     
         <span class="sidebar-category-name" data-categories="environment"><span class="iconfont-archer">&#xe60a;</span>environment</span>
     
-        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
-    
         <span class="sidebar-category-name" data-categories="ROS"><span class="iconfont-archer">&#xe60a;</span>ROS</span>
+    
+        <span class="sidebar-category-name" data-categories="Flask"><span class="iconfont-archer">&#xe60a;</span>Flask</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
