@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.5k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.7k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -476,6 +476,14 @@ height:50vh;
 
 <p>观察feat的第一个Batch，前三个正是表格中第2，5，6个格子！（从0开始）。这样就得到了我们需要的feature的像素点。至于其他的格子，我们使用之前传入的reg_mask，在不是hm峰值的部分为0，峰值处为1，则将feat的其余部分置为了0，在训练时不会计算loss。</p>
 <p>到了这里相信你已经意会了，还有啥不明白的做个实验尝试一下应该没问题啦^V^</p>
+<hr>
+<p>2023.5.25更新<br>跑的更新的代码中，突然这一句报错。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img2lidars = data[<span class="string">&#x27;lidar2img&#x27;</span>].inverse()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeError: CUDA error: operation not supported when calling `cusparseCreate(handle)`</span><br></pre></td></tr></table></figure>
+<p>查了一下原来是4090显卡的问题，网上其他人在3090上就没问题，于是稍微改一下代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">device = data[<span class="string">&#x27;lidar2img&#x27;</span>][<span class="number">0</span>].device</span><br><span class="line">img2lidars = data[<span class="string">&#x27;lidar2img&#x27;</span>].cpu()</span><br><span class="line">img2lidars = np.linalg.inv(img2lidars)</span><br><span class="line">img2lidars = coords.new_tensor(img2lidars).to(device=device)</span><br></pre></td></tr></table></figure>
+<p>这样就跑起来了，因为numpy只能操作cpu的数据，所以这里要转一下，这也是没有办法的事情，谁让目前的cuda11.1+4090使用inverse会报错嘞。</p>
 
     </article>
     <!-- license  -->

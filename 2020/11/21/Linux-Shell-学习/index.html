@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">360</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">612</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -429,6 +429,21 @@ height:50vh;
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5sum name</span><br></pre></td></tr></table></figure>
 
 <p>和官网提供的md5一比对发现确实有问题，重新下载。</p>
+<hr>
+<p>2023.5.25更新</p>
+<h4 id="2-pytorch使用指定GPU"><a href="#2-pytorch使用指定GPU" class="headerlink" title="2.pytorch使用指定GPU"></a>2.pytorch使用指定GPU</h4><p>模型训练无事可做，不如更新一下文档，记录一些学到的东西。<br>需要指定可使用的GPU时，除了在代码内使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ[<span class="string">&#x27;CUDA_VISIBLE_DEVICES&#x27;</span>] = <span class="string">&quot;2&quot;</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
+<p>这样的内容，记住这句话要在import torch前面。</p>
+<p>还可以直接在终端加入环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export CUDA_VISIBLE_DEVICES=&#x27;2&#x27;</span><br></pre></td></tr></table></figure>
+<p>还有在shell内使用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=&#x27;1,3&#x27; \</span><br><span class="line">python3 -m torch.distributed.launch --nproc_per_node=$GPUS --master_port=$PORT \</span><br><span class="line">    $(dirname &quot;$0&quot;)/train.py $CONFIG --launcher pytorch $&#123;@:3&#125;</span><br></pre></td></tr></table></figure>
+<p>这一句要在python的前面加上，否则会没有用。同时要切记是CUDA_VISIBLE_DEVICE<strong>S</strong>，而不是DEVICE，没有加这个<strong>S</strong>，就说为什么一直不起作用，一直使用了前两个GPU。</p>
+<hr>
+<h4 id="3-释放训练终端占用的显存"><a href="#3-释放训练终端占用的显存" class="headerlink" title="3.释放训练终端占用的显存"></a>3.释放训练终端占用的显存</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -elf | grep python</span><br></pre></td></tr></table></figure>
+<p>找到启动python的程序pid。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 S xxx       388776       1 30  80   0 - 6907113 futex_ 21:39 pts/21 00:00:49 /home/xxx/anaconda3/envs/petr/bin/python -u tools/train.py projects/xxx</span><br><span class="line">xxx.py --seed 0 --launcher pytorch --work-dir work_dirs/test</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill 388776</span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license  -->
@@ -581,7 +596,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-Shell-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">Linux Shell 学习记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%A7%A3%E5%8E%8B%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.解压一个文件夹下的多个文件</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-Shell-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">Linux Shell 学习记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%A7%A3%E5%8E%8B%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.解压一个文件夹下的多个文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-pytorch%E4%BD%BF%E7%94%A8%E6%8C%87%E5%AE%9AGPU"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.pytorch使用指定GPU</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%87%8A%E6%94%BE%E8%AE%AD%E7%BB%83%E7%BB%88%E7%AB%AF%E5%8D%A0%E7%94%A8%E7%9A%84%E6%98%BE%E5%AD%98"><span class="toc-number">1.0.3.</span> <span class="toc-text">3.释放训练终端占用的显存</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
